@@ -32,7 +32,7 @@
                                         <li><a href="<?php echo base_url(); ?>Mantenimiento/Categorias"><i class="fa fa-circle-o"></i> Categorias</a></li>
                                         <li><a href="<?php echo base_url(); ?>Mantenimiento/Clientes"><i class="fa fa-circle-o"></i> Clientes</a></li>
                                         <li><a href="<?php echo base_url(); ?>Mantenimiento/Empleado"><i class="fa fa-circle-o"></i> Empleados</a></li>
-                                        <li><a href="<?php echo base_url(); ?>Mantenimiento/Productos"><i class="fa fa-circle-o"></i> Productos</a></li>
+                                        <li><a href="<?php echo base_url(); ?>Mantenimiento/Servicios"><i class="fa fa-circle-o"></i> Servicios</a></li>
 
                                     </ul>
                                 </li>

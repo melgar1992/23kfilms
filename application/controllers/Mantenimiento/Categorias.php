@@ -22,8 +22,6 @@ class Categorias extends BaseController
         $descripcion = $this->input->post("descripcion");
         $this->form_validation->set_rules("nombre", "Nombre", "required|is_unique[categorias.nombre]");
         if ($this->form_validation->run()) {
-
-
             $data = array(
                 'nombre' => $nombre,
                 'descripcion' => $descripcion,
@@ -98,7 +96,6 @@ class Categorias extends BaseController
     {
         $data = array(
             'estado' => "0",
-
         );
         $this->Categorias_model->actualizar($id_categorias, $data);
         echo "Mantenimiento/Categorias";

@@ -36,7 +36,7 @@
 
                 
                  <form method="POST" action="<?php echo base_url();?>Mantenimiento/Categorias/actualizarCategoria" id="categorias" class="form-horizontal form-label-left">
-                     <input type="hidden" value="<?php echo $categoria->id_categorias;?>" name= "id_categorias">
+                     <input type="hidden" value="<?php echo $categoria->id_categoria_servicios;?>" name= "id_categorias">
                     <div class="form-group <?php echo !empty(form_error("nombre"))?'has-error':'';?>">
                          <label for="nombre" class="control-label col-md-3 col-sm-3 col-xs-12">Nombre <span class="required">*</span></label>
                          <div class="col-md-4 col-sm-6 col-xs-12">
