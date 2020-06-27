@@ -64,33 +64,6 @@ class Ventas_model extends CI_Model
         $resultado = $this->db->get('tipo_comprobante');
         return $resultado->row();
     }
-    public function getProcutosTodos()
-    {
-        $this->db->select('p.*, c.nombre as categoria');
-        $this->db->from('productos p');
-        $this->db->join('categorias c', 'c.id_categorias = p.id_categorias');
-        $this->db->where('p.estado', '1');
-        return $this->db->get()->result();
-    }
-    public function getProductos($valor)
-    {
-        $this->db->select("id_productos, codigo, nombre as label, precio, stock");
-        $this->db->from("productos");
-        $this->db->like("nombre", $valor);
-
-        $resultado = $this->db->get();
-        return $resultado->result_array();
-    }
-    public function getProductosCodigo($valor)
-    {
-        $this->db->select("id_productos, codigo, nombre as label, precio, stock");
-        $this->db->from("productos");
-        $this->db->like("codigo", $valor);
-
-        $resultado = $this->db->get();
-        return $resultado->result_array();
-    }
-
     public function guardarVentas($data)
     {
         return $this->db->insert('ventas', $data);
@@ -133,8 +106,8 @@ class Ventas_model extends CI_Model
         $this->db->select_sum('cantidad', 'cantidad');
         $this->db->from('ventas v, detalle_ventas d');
         $this->db->where('v.id_ventas = d.id_ventas');
-        $this->db->where('v.estado','1');
-        $this->db->where('v.fase_proyecto','En ejecucion');
+        $this->db->where('v.estado', '1');
+        $this->db->where('v.fase_proyecto', 'En ejecucion');
         $cantidad = $this->db->get()->row_array();
 
         $resultado = array(
@@ -152,5 +125,4 @@ class Ventas_model extends CI_Model
         $resultado = $this->db->get();
         return $resultado->row();
     }
-   
 }

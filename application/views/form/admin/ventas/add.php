@@ -3,7 +3,7 @@
       <div class="">
           <div class="page-title">
               <div class="title_left">
-                  <h3>Registrar Salida</h3>
+                  <h3>Registrar venta de servicio</h3>
               </div>
 
               <div class="title_right">
@@ -38,7 +38,7 @@
 
                                   <form action="<?php echo base_url(); ?>movimientos/ventas/guardar" method="POST" class="form-horizontal">
                                       <div class="form-group">
-                                          
+
 
                                       </div>
                                       <div class="form-group">
@@ -52,7 +52,7 @@
                                                   </span>
                                               </div><!-- /input-group -->
                                           </div>
-                                          
+
                                           <div class="col-md-3">
                                               <label for="">Fecha:</label>
                                               <input type="date" value="<?php echo date("Y-m-d") ?>" class="form-control" name="fecha" required>
@@ -67,8 +67,11 @@
                                               <label for="fase_proyecto" class="">Fase de proyecto</label>
                                               <select name="fase_proyecto" id="fase_proyecto" requiered='requiered' class="form-control col-md-7 col-xs-12">
                                                   <option value="">Seleccione</option>
+                                                  <option value="Evaluacion del proyecto">Evaluacion del proyecto</option>
+                                                  <option value="Aprobado">Aprobado</option>
                                                   <option value="En ejecucion">En ejecucion</option>
-                                                  
+                                                  <option value="Terminado">Terminado</option>
+
                                               </select>
                                           </div>
                                           <div class="col-md-3">
@@ -84,43 +87,20 @@
 
                                       </div>
 
-                                      <label for="Productos" class="col-md-12">Buscar y agregar productos o servicios</label>
+                                      <label for="Productos" class="col-md-12">Buscar y agregar una categoria de servicio para comenzar el proyecto</label>
                                       <br></br>
                                       <div class="form-group">
-                                          <div class="col-md-4">
-                                              <label for="">Descripcion:</label>
-                                              <input type="text" class="form-control" id="producto">
-                                          </div>
-                                          <div class="col-md-4">
-                                              <label for="">Codigo producto:</label>
-                                              <input type="text" class="form-control" id="codigo_producto">
-                                          </div>
                                           <div class="col-md-2">
                                               <label for="">&nbsp;</label>
-                                              <button id="btn-agregar" type="button" class="btn btn-success btn-flat btn-block"><span class="fa fa-plus"></span> Agregar</button>
-                                          </div>
-                                          <div class="col-md-2">
-                                              <label for="">&nbsp;</label>
-                                              <button class="btn btn-primary btn-flat btn-block" type="button" data-toggle="modal" data-target="#modal-productos"><span class="fa fa-search"></span> Buscar</button>
+                                              <button class="btn btn-primary btn-flat btn-block" type="button" data-toggle="modal" data-target="#modal-categorias"><span class="fa fa-search"></span> Buscar</button>
                                           </div>
                                       </div>
                                       <br></br>
-                                      <table id="tbventas" class="table table-bordered table-striped table-hover">
-                                          <thead>
-                                              <tr>
-                                                  <th>Codigo</th>
-                                                  <th>Descripcion</th>
-                                                  <th>Precio</th>
-                                                  <th>Stock Max.</th>
-                                                  <th>Cantidad</th>
-                                                  <th>Importe</th>
-                                                  <th>Opciones</th>
-                                              </tr>
-                                          </thead>
-                                          <tbody>
 
-                                          </tbody>
-                                      </table>
+                                      <div id="tablas-categorias">
+
+
+                                      </div>                                                           
 
                                       <div class="form-group">
                                           <div class="col-md-3">
@@ -129,8 +109,8 @@
                                                   <input type="text" class="form-control" placeholder="" value="0.00" name="subtotal" readonly="readonly">
                                               </div>
                                           </div>
-                                         
-                                         
+
+
                                       </div>
 
                                       <div class="form-group">
@@ -150,7 +130,53 @@
       </div>
   </div>
   <!-- /page content -->
+  <div class="modal fade" id="modal-categorias">
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">Lista de Categorias de servicios</h4>
+              </div>
+              <div class="modal-body">
+                  <table id="example1" class="table table-bordered table-striped table-hover">
+                      <thead>
+                          <tr>
+                              <th>#</th>
+                              <th>Nombre</th>
+                              <th>Descripcion</th>
+                              <th>Opcion</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <?php if (!empty($categoria_servicios)) : ?>
+                              <?php foreach ($categoria_servicios as $row) : ?>
+                                  <tr>
+                                      <td><?php echo $row->id_categoria_servicios; ?></td>
+                                      <td><?php echo $row->nombre; ?></td>
+                                      <td><?php echo $row->descripcion; ?></td>
+                                      <?php $dataCategoriaServicio = $row->id_categoria_servicios . "*" . $row->nombre . "*" . $row->descripcion; ?>
 
+                                      <td>
+                                          <button type="button" class="btn btn-success btn-check-categoria" value="<?php echo $dataCategoriaServicio ?>"><span class="fa fa-check"></span></button>
+                                      </td>
+                                  </tr>
+                              <?php endforeach; ?>
+                          <?php endif; ?>
+
+                      </tbody>
+                  </table>
+
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cerrar</button>
+              </div>
+          </div>
+          <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
 
   <div class="modal fade" id="modal-default">
       <div class="modal-dialog modal-lg">
@@ -202,7 +228,7 @@
   </div>
   <!-- /.modal -->
 
-  <div class="modal fade" id="modal-productos">
+  <div class="modal fade" id="modal-servicios">
       <div class="modal-dialog modal-lg">
           <div class="modal-content">
               <div class="modal-header">
@@ -218,32 +244,22 @@
                               <th>Descripcion</th>
                               <th>Estado Producto</th>
                               <th>Categoria</th>
-                              <th>Precio</th>
-                              <th>Stock</th>
-                              <th>Lugar Almacenamiento</th>
-                              <th>Color</th>
-                              <th>Talla</th>
                               <th>Opcion</th>
                           </tr>
                       </thead>
                       <tbody>
-                          <?php if (!empty($productos)) : ?>
-                              <?php foreach ($productos as $producto) : ?>
+                          <?php if (!empty($servicios)) : ?>
+                              <?php foreach ($servicios as $row) : ?>
                                   <tr>
-                                      <td><?php echo $producto->codigo; ?></td>
-                                      <td><?php echo $producto->nombre; ?></td>
-                                      <td><?php echo $producto->descripcion; ?></td>
-                                      <td><?php echo $producto->categoria; ?></td>
-                                      <td><?php echo $producto->precio; ?></td>
-                                      <td><?php echo $producto->stock; ?></td>
-                                      <td><?php echo $producto->lugar_almacenado; ?></td>
-                                      <td><?php echo $producto->color; ?></td>
-                                      <td><?php echo $producto->talla; ?></td>
+                                      <td><?php echo $row['id_servicio']; ?></td>
+                                      <td><?php echo $row['nombre']; ?></td>
+                                      <td><?php echo $row['descripcion']; ?></td>
+                                      <td><?php echo $row['categoria']; ?></td>
 
-                                      <?php $dataproducto = $producto->id_productos . "*" . $producto->codigo . "*" . $producto->nombre . "*" . $producto->precio . "*" . $producto->stock; ?>
+                                      <?php $dataServicio = $row['id_servicio'] . "*" . $row['nombre'] . "*" . $row['descripcion'] . "*" . $row['categoria']; ?>
 
                                       <td>
-                                          <button type="button" class="btn btn-success btn-check-producto" value="<?php echo $dataproducto ?>"><span class="fa fa-check"></span></button>
+                                          <button type="button" class="btn btn-success btn-check-producto" value="<?php echo $dataServicio ?>"><span class="fa fa-check"></span></button>
                                       </td>
                                   </tr>
                               <?php endforeach; ?>

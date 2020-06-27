@@ -15,8 +15,6 @@ class Ventas extends BaseController
         $data = array(
             'ventas' => $this->Ventas_model->getVentas(),
         );
-
-
         $this->loadView('Ventas', '/form/admin/ventas/list', $data);
     }
 
@@ -25,8 +23,9 @@ class Ventas extends BaseController
         $data = array(
             "tipocomprobantes" => $this->Ventas_model->getComprobantes(),
             "clientes" => $this->Clientes_model->getClientes(),
-            "productos" => $this->Ventas_model->getProcutosTodos(),
+            "servicios" => $this->Servicios_model->getServicios(),
             "empleados" => $this->Empleado_model->getEmpleados(),
+            "categoria_servicios" => $this->Categorias_model->getCategorias(),
         );
         $this->loadView('Ventas', '/form/admin/ventas/add', $data);
     }

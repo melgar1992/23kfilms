@@ -36,8 +36,7 @@
                           <div class="form-group">
                               <a href="<?php echo base_url(); ?>Movimientos/Ventas/add">
 
-                                  <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-
+                                  <div class="col-md-6 col-sm-6 col-xs-12">
                                       <button type="submit" id="agregar" class="btn btn-success">Agregar Salida Vestuario</button>
                               </a>
 
