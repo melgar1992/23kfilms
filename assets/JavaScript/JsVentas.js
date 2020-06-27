@@ -1,8 +1,13 @@
 $(document).ready(function () {
 	var base_url = $("#base_url").val();
 	sumar();
-	$('#tablaProdcutos').DataTable({
+	var tabla_productos = $('#tablaProdcutos').DataTable({
 		responsive: "true",
+		"columnDefs": [{
+			"targets": -1,
+			"data": null,
+			"defaultContent": "<button type='button' class='btn btn-success btn-check-servicio' value=''><span class='fa fa-check'></span></button>",
+		}],
 		"language": {
 			'lengthMenu': "Mostrar _MENU_ registros",
 			"zeroRecords": "No se encontraron resultados",
@@ -54,7 +59,7 @@ $(document).ready(function () {
 		$("#cliente").val(infocliente[1]);
 		$("#modal-default").modal("hide");
 	});
-	$(document).on("click", ".btn-check-empleado", function () {
+	$(document).on("click", ".btn-check-servicio", function () {
 
 		empleado = $(this).val();
 		infocliente = empleado.split("*");
@@ -62,20 +67,69 @@ $(document).ready(function () {
 		$("#empleado").val(infocliente[1] + ' ' + infocliente[2]);
 		$("#modal-empleados").modal("hide");
 	});
-	$(document).on("click", ".btn-check-producto", function () {
 
-		producto = $(this).val();
-		agregarProducto(producto);
-		$("#modal-productos").modal("hide");
+	// Funciones de las tablas de categorias
+	$(document).on("click", ".btn-check-servicio", function () {
+
+		fila = $(this).closest('tr');
+		servicio = new Array;
+		servicio['id_servicio'] = parseInt(fila.find('td:eq(0)').text());
+		servicio['nombre_servicio'] = fila.find('td:eq(1)').text();
+		servicio['descripcion'] = fila.find('td:eq(2)').text();
+		servicio['nombre_categoria'] = fila.find('td:eq(3)').text();
+		agregarServicio(servicio);
+
 	});
-    $(document).on("click", ".btn-check-categoria", function () {
-		agregarTablaCategoria();
+	$(document).on("click", ".btn-check-categoria", function () {
+		categoria = $(this).val();
+		id_categoria = categoria.split('*');
+		id_categoria = id_categoria['0'];
+		if ($(".tabla-categoria-" + id_categoria).length > 0) {
+			Swal.fire({
+				type: 'error',
+				icon: 'error',
+				title: 'Error, la tabla de categoria ya existe!!',
+				text: '',
+			});
+		} else {
+			agregarTablaCategoria(categoria);
+		}
+
 	});
+	$(document).on("click", ".eliminar-tabla-categoria", function () {
+
+		id_tabla_eliminar = $(this).val();
+		$("." + id_tabla_eliminar).remove();
+	});
+	$(document).on('click', '#buscar-servicios-categoria', function () {
+		id_categoria = $(this).val();
+		$.ajax({
+			type: "POST",
+			url: base_url + "Movimientos/Ventas/getServiciosCategoria",
+			data: {
+				id_categoria: id_categoria,
+			},
+			dataType: "json",
+			success: function (servicios) {
+				tabla_productos.clear().draw();
+				for (let i = 0; i < servicios.length; i++) {
+					tabla_productos.row.add([
+						servicios[i]['id_servicio'],
+						servicios[i]['nombre'],
+						servicios[i]['descripcion'],
+						servicios[i]['categoria'],
+					]).draw();
+				}
+			},
+		});
+	});
+
+	//Terminan las funciones de tablas de categorias
 	$(document).on("click", ".btn-remove-producto", function () {
 
 		$(this).closest("tr").remove();
 		sumar();
-    });
+	});
 	$(document).on("change", "#tbventas input.cantidades", function () {
 
 
@@ -126,7 +180,7 @@ $(document).ready(function () {
 				var id = $(this).val();
 
 				$.ajax({
-					url: base_url + 'Mantenimiento/Empleado/borrar/' + id,
+					url: base_url + 'Movimientos/Ventas/borrar/' + id,
 					type: 'POST',
 					success: function (resp) {
 						window.location.href = base_url + resp;
@@ -136,7 +190,8 @@ $(document).ready(function () {
 
 			}
 		})
-	})
+	});
+
 
 })
 
@@ -180,58 +235,63 @@ function generarNumero(numero) {
 	}
 }
 
-function agregarProducto(producto) {
-	data = producto;
-	if (data != '') {
-		infoproducto = data.split("*");
+function agregarServicio(servicio) {
+	if (servicio['id_servicio'] > 0) {
 		html = "<tr>";
-		html += "<td><input type='hidden' name= 'idproductos[]' value ='" + infoproducto[0] + "'>" + infoproducto[1] + "</td>";
-		html += "<td>" + infoproducto[2] + "</td>";
-		html += "<td><input type='hidden' name = 'precios[]' value ='" + infoproducto[3] + "'>" + infoproducto[3] + "</td>";
-		html += "<td>" + infoproducto[4] + "</td>";
-		html += "<td><input type = 'number' class='cantidades' min = '0' max = '" + infoproducto[4] + "' name = 'cantidades[]' value = '1'></td>";
-		html += "<td><input type ='hidden' name = 'importes[]' value ='" + infoproducto[3] + "'><p>" + infoproducto[3] + "</p></td>";
+		html += "<td><input type='hidden' name= 'id_servicio[]' value ='" + servicio['id_servicio'] + "'>" + servicio['nombre_servicio'] + "</td>";
+		html += "<td><input type = 'number' class='cantidad form-control' min = '0' name = 'cantidad[]' value = ''></td>";
+		html += "<td><input type = 'number' class='dias form-control' min = '0' name = 'dias[]' value = ''></td>";
+		html += "<td><input type = 'number' class='costo form-control' min = '0' name = 'costo[]' value = ''></td>";
+		html += "<td><input type = 'number' class='total form-control' min = '0' name = 'total[]' value = ''></td>";
+		html += "<td><input type = 'number' class='real form-control' min = '0' name = 'real[]' value = ''></td>";
+		html += "<td><input type = 'number' class='facturado form-control' min = '0' name = 'facturado[]' value = ''></td>";
+		html += "<td><input type = 'number' class='sin_factura form-control' min = '0' name = 'sin_factura[]' value = ''></td>";
+		html += "<td><input type = 'text' maxlength='100'  class='observaciones form-control' min = '0' name = 'observaciones[]' value = ''></td>";
 		html += "<td><button type='button' class='btn btn-danger btn-remove-producto'><span class='fa fa-remove'></span></button></td>";
 		html += "</tr>";
-		$("#tbventas tbody").append(html);
-		sumar();
-		$("#btn-agregar").val(null);
-		$("#producto").val(null);
+		$("#tabla-categoria-" + servicio['nombre_categoria'] + " tbody").append(html);
 	} else {
 		alert("seleccione un producto");
 	}
 }
 
-function agregarTablaCategoria() {
+function agregarTablaCategoria(categoria) {
+
+	categoria = categoria.split('*');
+	id_categoria = categoria['0'];
+	nombre_categoria = categoria['1'];
+	descripcion = categoria['2'];
 
 
-
-    html = "<div class = 'form-group'>"
-    html += "<div class = 'col-md-1'>"
-    html += "<button class='btn btn-primary btn-flat btn-block' type='button' data-toggle='modal' data-target='#modal-servicios'><span class='fa fa-search'></span> Buscar</button>";
-    html += "</div>";
-    html += "<div class = 'col-md-1 col-md-offset-10'>"
-    html += "<button id = '' class='btn btn-danger btn-flat' type='button' title = 'Eliminar Tabla!'><span class='fa fa-remove'></span></button>";
-    html += "</div>";
-    html += "</div>";
-    html += "<table id='' class='table table-hover'>";
+	html = "<div class = 'tabla-categoria-" + id_categoria + "'>";
+	html += "<div class = 'form-group'>";
+	html += "<div class = 'col-md-2'>";
+	html += "<button class='btn btn-primary btn-flat btn-block' id = 'buscar-servicios-categoria' value = '" + id_categoria + "' type='button' data-toggle='modal' data-target='#modal-servicios'><span class='fa fa-search '></span><small> " + nombre_categoria + "</small></button>";
+	html += "</div>";
+	html += "<div class = 'col-md-1 col-md-offset-10'>"
+	html += "<button id = 'eliminar-tabla-categoria' value = 'tabla-categoria-" + id_categoria + "' class='btn btn-danger btn-flat eliminar-tabla-categoria' type='button' title = 'Eliminar Tabla!'><span class='fa fa-remove'></span></button>";
+	html += "</div>";
+	html += "</div>";
+	html += "<table id='tabla-categoria-" + nombre_categoria + "' class='table table-hover'>";
 	html += "<thead>";
-    html += "<tr>";
-    html += "<th>Nombre</th>";
-    html += "<th>Cantidad</th>";
-    html += "<th>Dias</th>";
-    html += "<th>Costo</th>";
-    html += "<th>Total</th>";
-    html += "<th>Real</th>";
-    html += "<th>Facturado</th>";
-    html += "<th>Sin factura</th>";
-    html += "<th>Observaciones</th>";
-    html += "</tr>";
-    html += "</thead>";
-    html += "<tbody>";
-    html += "</tbody>";
-    html += "</table>";
+	html += "<tr>";
+	html += "<th>Nombre</th>";
+	html += "<th>Cantidad</th>";
+	html += "<th>Dias</th>";
+	html += "<th>Costo</th>";
+	html += "<th>Total</th>";
+	html += "<th>Real</th>";
+	html += "<th>Facturado</th>";
+	html += "<th>Sin factura</th>";
+	html += "<th>Observaciones</th>";
+	html += "<th>Opciones</th>";
+	html += "</tr>";
+	html += "</thead>";
+	html += "<tbody>";
+	html += "</tbody>";
+	html += "</table>";
+	html += "</div>";
 
-    $("#tablas-categorias").append(html);
+	$("#tablas-categorias").append(html);
 
 }

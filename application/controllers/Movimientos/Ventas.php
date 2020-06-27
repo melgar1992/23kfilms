@@ -29,6 +29,12 @@ class Ventas extends BaseController
         );
         $this->loadView('Ventas', '/form/admin/ventas/add', $data);
     }
+    public function getServiciosCategoria()
+    {
+        $id_categoria = $this->input->post("id_categoria");
+        $servicios = $this->Servicios_model->getServiciosCategoria($id_categoria);
+        echo json_encode($servicios);
+    }
     public function getProductos()
     {
         $valor = $this->input->post("valor");

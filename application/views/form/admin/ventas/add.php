@@ -110,7 +110,6 @@
                                               </div>
                                           </div>
 
-
                                       </div>
 
                                       <div class="form-group">
@@ -234,36 +233,21 @@
               <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title">Lista de Productos</h4>
+                  <h4 class="modal-title">Lista de servicios</h4>
               </div>
               <div class="modal-body">
                   <table id="tablaProdcutos" class="table table-bordered table-striped table-hover">
                       <thead>
                           <tr>
                               <th>Codgio</th>
+                              <th>Nombre</th>
                               <th>Descripcion</th>
-                              <th>Estado Producto</th>
                               <th>Categoria</th>
                               <th>Opcion</th>
                           </tr>
                       </thead>
                       <tbody>
-                          <?php if (!empty($servicios)) : ?>
-                              <?php foreach ($servicios as $row) : ?>
-                                  <tr>
-                                      <td><?php echo $row['id_servicio']; ?></td>
-                                      <td><?php echo $row['nombre']; ?></td>
-                                      <td><?php echo $row['descripcion']; ?></td>
-                                      <td><?php echo $row['categoria']; ?></td>
-
-                                      <?php $dataServicio = $row['id_servicio'] . "*" . $row['nombre'] . "*" . $row['descripcion'] . "*" . $row['categoria']; ?>
-
-                                      <td>
-                                          <button type="button" class="btn btn-success btn-check-producto" value="<?php echo $dataServicio ?>"><span class="fa fa-check"></span></button>
-                                      </td>
-                                  </tr>
-                              <?php endforeach; ?>
-                          <?php endif; ?>
+                          
 
                       </tbody>
                   </table>
