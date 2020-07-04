@@ -58,9 +58,7 @@
                                         <input type="text" maxlength="100" name="descripcion" value="<?php echo set_value('descripcion') ?>" id=descripcion required="required" class="form-control col-md-7 col-xs-12" placeholder="descripcion del servicio">
                                         <?php echo form_error("descripcion", "<span class='help-block col-md-4 cols-xs-12 '>", "</span>"); ?>
                                     </div>
-                                </div>
-
-                            
+                                </div>                          
 
                                 <br>
                                 <br>

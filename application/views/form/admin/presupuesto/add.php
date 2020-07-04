@@ -3,7 +3,7 @@
       <div class="">
           <div class="page-title">
               <div class="title_left">
-                  <h3>Registrar venta de servicio</h3>
+                  <h3>Registrar un nuevo presupuesto</h3>
               </div>
 
               <div class="title_right">

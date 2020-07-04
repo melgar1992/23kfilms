@@ -1,6 +1,7 @@
 <?php
 class Ventas_model extends CI_Model
 {
+    //Totas estas funciones son de Ventas
     public function getVentas()
     {
         $this->db->select('v.*, c.nombres');
@@ -125,4 +126,23 @@ class Ventas_model extends CI_Model
         $resultado = $this->db->get();
         return $resultado->row();
     }
+
+    //Todas estas funciones son de presupuesto
+    public function getPresupuestos()
+    {
+        $this->db->select('v.*, c.nombres');
+        $this->db->from('ventas v');
+        $this->db->join('clientes c', 'v.id_clientes = c.id_clientes');
+        $this->db->join('tipo_comprobante tc','v.id_tipo_comprobante = tc.id_tipo_comprobante');
+        $this->db->where('tc.id_tipo_comprobante','3');
+        $resultado = $this->db->get()->result_array();
+
+        if (count($resultado) > 0) {
+            return $resultado;
+        } else {
+            return false;
+        }
+    }
+
+
 }

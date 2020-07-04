@@ -38,8 +38,8 @@
                                 </li>
                                 <li><a><i class="fa fa-share-alt"></i> Movimientos <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-
                                         <li><a href="<?php echo base_url(); ?>Movimientos/Ventas"><i class="fa fa-circle-o"></i> Venta de servicio</a></li>
+                                        <li><a href="<?php echo base_url(); ?>Movimientos/Presupuesto"><i class="fa fa-circle-o"></i> Presupuesto de venta</a></li>
                                     </ul>
                                 </li>
                                
