@@ -99,7 +99,7 @@
                                                                     <div class="btn-group">
                                                                         <button type="button" class="btn btn-info btn-vista" data-toggle="modal" data-target="modal-default" value="<?php echo $categoria->id_categoria_servicios ?>"><span class="fa fa-search"></span></button>
                                                                         <a href="<?php echo base_url() ?>Mantenimiento/Categorias/editar/<?php echo $categoria->id_categoria_servicios; ?>" class="btn btn-warning"><span class="fa fa-pencil"></span></a>
-                                                                        <a href="<?php echo base_url(); ?>Mantenimiento/Categorias/borrar/<?php echo $categoria->id_categoria_servicios; ?>" class="btn btn-danger btn-borrar"><span class="fa fa-remove"></span></a>
+                                                                        <button type="button" value="<?php echo  $categoria->id_categoria_servicios; ?>" class="btn btn-danger btn-borrar"><span class="fa fa-remove"></span></button>
                                                                     </div>
                                                                 </td>
                                                             </tr>

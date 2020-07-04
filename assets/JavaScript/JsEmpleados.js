@@ -19,7 +19,7 @@ $(document).ready(function() {
                 var id = $(this).val();
 
                 $.ajax({
-                    url: base + 'Movimientos/ventas/borrar/' + id,
+                    url: base + 'Mantenimiento/Empleado/borrar/' + id,
                     type: 'POST',
                     success: function(resp) {
 
