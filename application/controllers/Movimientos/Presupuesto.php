@@ -17,7 +17,6 @@ class Presupuesto extends BaseController
         $data = array(
             "tipocomprobantes" => $this->Ventas_model->getComprobantes(),
             "clientes" => $this->Clientes_model->getClientes(),
-            "servicios" => $this->Servicios_model->getServicios(),
             "empleados" => $this->Empleado_model->getEmpleados(),
             "categoria_servicios" => $this->Categorias_model->getCategorias(),
         );

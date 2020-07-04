@@ -1,31 +1,5 @@
 $(document).ready(function () {
 	var base_url = $("#base_url").val();
-	sumar();
-	var tabla_productos = $('#tablaProdcutos').DataTable({
-		responsive: "true",
-		"columnDefs": [{
-			"targets": -1,
-			"data": null,
-			"defaultContent": "<button type='button' class='btn btn-success btn-check-servicio' value=''><span class='fa fa-check'></span></button>",
-		}],
-		"language": {
-			'lengthMenu': "Mostrar _MENU_ registros",
-			"zeroRecords": "No se encontraron resultados",
-			"info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registro",
-			"infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-			"infoFiltered": "(filtrado de un total de _MAX_ registros)",
-			"sSearch": "Buscar",
-			"oPaginate": {
-				"sFirst": "Primero",
-				"sLast": "Ultimo",
-				"sNext": "Siguiente",
-				"sPrevious": "Anterior",
-
-			},
-			"sProcesing": "Procesando...",
-		}
-
-	});
 	$('#comprobantes').on('change', function () {
 		option = $(this).val();
 
@@ -44,13 +18,9 @@ $(document).ready(function () {
 			$('#numero').val(null);
 
 		}
-		sumar();
 
 	})
-	$('#descuento_porcentaje').on('change', function () {
-		sumar();
 
-	});
 	$(document).on("click", ".btn-check", function () {
 
 		cliente = $(this).val();
@@ -69,15 +39,10 @@ $(document).ready(function () {
 	});
 
 	// Funciones de las tablas de categorias
-	$(document).on("click", ".btn-check-servicio", function () {
+	$(document).on("click", "#agregar_fila", function () {
 
-		fila = $(this).closest('tr');
-		servicio = new Array;
-		servicio['id_servicio'] = parseInt(fila.find('td:eq(0)').text());
-		servicio['nombre_servicio'] = fila.find('td:eq(1)').text();
-		servicio['descripcion'] = fila.find('td:eq(2)').text();
-		servicio['nombre_categoria'] = fila.find('td:eq(3)').text();
-		agregarServicio(servicio);
+		id_categoria = $(this).val();
+		agregarServicio(id_categoria);
 
 	});
 	$(document).on("click", ".btn-check-categoria", function () {
@@ -101,36 +66,15 @@ $(document).ready(function () {
 		id_tabla_eliminar = $(this).val();
 		$("." + id_tabla_eliminar).remove();
 	});
-	$(document).on('click', '#buscar-servicios-categoria', function () {
-		id_categoria = $(this).val();
-		$.ajax({
-			type: "POST",
-			url: base_url + "Movimientos/Ventas/getServiciosCategoria",
-			data: {
-				id_categoria: id_categoria,
-			},
-			dataType: "json",
-			success: function (servicios) {
-				tabla_productos.clear().draw();
-				for (let i = 0; i < servicios.length; i++) {
-					tabla_productos.row.add([
-						servicios[i]['id_servicio'],
-						servicios[i]['nombre'],
-						servicios[i]['descripcion'],
-						servicios[i]['categoria'],
-					]).draw();
-				}
-			},
-		});
-	});
 
 	//Terminan las funciones de tablas de categorias
 	$(document).on("click", ".btn-remove-producto", function () {
-
+		
+		id_tabla = $(this).closest('tr').closest('tbody').closest('table').attr('id');
 		$(this).closest("tr").remove();
-		sumar();
+		sumarTabla(id_tabla);
 	});
-	
+
 	$(document).on('click', '.btn-view-venta', function () {
 		valor_id = $(this).val();
 		$.ajax({
@@ -183,33 +127,12 @@ $(document).ready(function () {
 		})
 	});
 	$(document).on("change", ".costo, .cantidad, .dias", function () {
-		console.log('entro aqui');
-		valor = $(this).val();
-		console.log(valor);
-		$(this).closest('tr').closest('tbody').closest('table').children('tfoot').children('tr').find('th:eq(1)').children('p').text(valor);
-		console.log(valor + 1);
+
+		id_tabla = $(this).closest('tr').closest('tbody').closest('table').attr('id');
+		sumarTabla(id_tabla);
 	});
 
 })
-
-
-
-function sumar() {
-	subtotal = 0;
-	porcentaje_descuento = $('#descuento_porcentaje').val();
-	$("#tbventas  tbody tr").each(function () {
-		subtotal = subtotal + Number($(this).find("td:eq(5)").text());
-	});
-	$("input[name=subtotal]").val(subtotal.toFixed(2));
-	porcentaje_descuento = (porcentaje_descuento / 100);
-	$('input[name=descuento]').val((subtotal * porcentaje_descuento).toFixed(2));
-	porcentaje = $("#igv").val();
-	descuento = subtotal * porcentaje_descuento;
-	total = subtotal - descuento;
-	igv = total * (porcentaje / 100);
-	$("input[name=igv]").val(igv.toFixed(2));
-	$("input[name=total]").val(total.toFixed(2));
-}
 
 function generarNumero(numero) {
 	if (numero >= 99999 && numero < 999999) {
@@ -232,24 +155,21 @@ function generarNumero(numero) {
 	}
 }
 
-function agregarServicio(servicio) {
-	if (servicio['id_servicio'] > 0) {
+function agregarServicio(id_categoria) {
+	if (id_categoria > 0) {
 		html = "<tr>";
-		html += "<td><input type='hidden' name= 'id_servicio[]' value ='" + servicio['id_servicio'] + "'>" + servicio['nombre_servicio'] + "</td>";
+		html += "<td><input type='text' class='nombre form-control' name= 'nombre[]' value =''></td>";
 		html += "<td><input type = 'number' step = '0.01' value = '1' class='cantidad form-control' min = '0' name = 'cantidad[]' ></td>";
 		html += "<td><input type = 'number' step = '0.01' value = '1' class='dias form-control' min = '0' name = 'dias[]' ></td>";
 		html += "<td><input type = 'number' step = '0.01' value = '0' class='costo form-control' min = '0' name = 'costo[]' ></td>";
-		html += "<td><input type = 'number' step = '0.01' value = '0' class='costo_real form-control' min = '0' name = 'costo_real[]' ></td>";
 		html += "<td><input type = 'number' step = '0.01' value = '0' readonly class='total form-control' min = '0' name = 'total[]'  ></td>";
-		html += "<td><input type = 'number' step = '0.01' value = '0' readonly class='real form-control' min = '0' name = 'real[]' ></td>";
 		html += "<td><input type = 'number' step = '0.01' value = '0' readonly class='facturado form-control' min = '0' name = 'facturado[]' ></td>";
-		html += "<td><input type = 'number' step = '0.01' value = '0' readonly class='sin_factura form-control' min = '0' name = 'sin_factura[]' ></td>";
 		html += "<td><input type = 'text' maxlength='100'  class='observaciones form-control' min = '0' name = 'observaciones[]' ></td>";
-		html += "<td><button type='button' class='btn btn-danger btn-remove-producto'><span class='fa fa-remove'></span></button></td>";
+		html += "<td><button type='button' class='btn btn-danger btn-remove-producto' title = 'Eliminar fila!'><span class='fa fa-remove'></span></button></td>";
 		html += "</tr>";
-		$("#tabla-categoria-" + servicio['nombre_categoria'] + " tbody").append(html);
+		$("#tabla-categoria-" + id_categoria + " tbody").append(html);
 	} else {
-		alert("seleccione un producto");
+		alert("seleccione una tabla");
 	}
 }
 
@@ -264,24 +184,21 @@ function agregarTablaCategoria(categoria) {
 	html = "<div class = 'tabla-categoria-" + id_categoria + "'>";
 	html += "<div class = 'form-group'>";
 	html += "<div class = 'col-md-2'>";
-	html += "<button class='btn btn-primary btn-flat btn-block' id = 'buscar-servicios-categoria' value = '" + id_categoria + "' type='button' data-toggle='modal' data-target='#modal-servicios'><span class='fa fa-search '></span><small> " + nombre_categoria + "</small></button>";
+	html += "<button class='btn btn-primary btn-flat btn-block' id = 'agregar_fila' value = '" + id_categoria + "' type='button'><span class='fa fa-plus '></span><small> " + nombre_categoria + "</small></button>";
 	html += "</div>";
 	html += "<div class = 'col-md-1 col-md-offset-10'>"
 	html += "<button id = 'eliminar-tabla-categoria' value = 'tabla-categoria-" + id_categoria + "' class='btn btn-danger btn-flat eliminar-tabla-categoria' type='button' title = 'Eliminar Tabla!'><span class='fa fa-remove'></span></button>";
 	html += "</div>";
 	html += "</div>";
-	html += "<table id='tabla-categoria-" + nombre_categoria + "' class='table jambo_table table-hover'>";
+	html += "<table id='tabla-categoria-" + id_categoria + "' class='table jambo_table table-hover'>";
 	html += "<thead>";
 	html += "<tr>";
 	html += "<th>Nombre</th>";
 	html += "<th>Cantidad</th>";
 	html += "<th>Dias</th>";
 	html += "<th>Costo</th>";
-	html += "<th>Costo real</th>";
 	html += "<th>Total</th>";
-	html += "<th>Total real</th>";
 	html += "<th>Facturado</th>";
-	html += "<th>Sin factura</th>";
 	html += "<th>Observaciones</th>";
 	html += "<th>Opciones</th>";
 	html += "</tr>";
@@ -291,9 +208,8 @@ function agregarTablaCategoria(categoria) {
 	html += "<tfoot>";
 	html += '<tr>';
 	html += '<th colspan = "4">Totales </th>';
-	html += '<th><p></p></th>';
-	html += '<th><p></p></th>';
-	html += '<th><p></p></th>';
+	html += '<th><p>0</p></th>';
+	html += '<th><p>0</p></th>';
 	html += '<th><p></p></th>';
 	html += '<th><p></p></th>';
 	html += '</tr>';
@@ -306,6 +222,36 @@ function agregarTablaCategoria(categoria) {
 
 }
 
-function sumarTabla(tabla)
-{
+function sumarTabla(id_tabla) {
+	sumaTotal = 0;
+	sumaFacturado = 0;
+	$('#' + id_tabla + ' tbody tr').each(function () {
+		cantidad = Number($(this).find("td:eq(1)").children('input').val());
+		dias = Number($(this).find("td:eq(2)").children('input').val());
+		costo = Number($(this).find("td:eq(3)").children('input').val());
+		total = cantidad * dias * costo;
+		facturado = (total * 1.16).toFixed(2);
+		sumaTotal = sumaTotal + total;
+		sumaFacturado = Number(sumaFacturado)  + Number(facturado);
+		$(this).find("td:eq(4)").children('input').val(total);
+		$(this).find("td:eq(5)").children('input').val(facturado);
+	});
+	totalAnterio = Number($('#' + id_tabla + ' tfoot tr th:eq(1)').children('p').text());
+	$('#' + id_tabla + ' tfoot tr th:eq(1)').children('p').text(sumaTotal.toFixed(2));
+	$('#' + id_tabla + ' tfoot tr th:eq(2)').children('p').text(sumaFacturado.toFixed(2));
+	difTotalTabla = sumaTotal - totalAnterio;
+	sumarTotales(difTotalTabla);
+
+}
+
+function sumarTotales(difTotalTabla) {
+
+	total = $("input[name=total]").val();
+	total = Number(total) + Number(difTotalTabla);
+	totalFacturado = total * 1.16;
+	iva = total * 0.16;
+	$("input[name=total]").val(total.toFixed(2));
+	$("input[name=iva]").val(iva.toFixed(2));
+	$("input[name=facturaTotal]").val(totalFacturado.toFixed(2));
+	
 }

@@ -106,7 +106,19 @@
                                           <div class="col-md-3">
                                               <div class="input-group">
                                                   <span class="input-group-addon">Total:</span>
-                                                  <input type="text" class="form-control" placeholder="" value="0.00" name="subtotal" readonly="readonly">
+                                                  <input type="text" class="form-control" placeholder="" value="0.00" name="total" readonly="readonly">
+                                              </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                              <div class="input-group">
+                                                  <span class="input-group-addon">Iva:</span>
+                                                  <input type="text" class="form-control" placeholder="" value="0.00" name="iva" readonly="readonly">
+                                              </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                              <div class="input-group">
+                                                  <span class="input-group-addon">Total facturado:</span>
+                                                  <input type="text" class="form-control" placeholder="" value="0.00" name="facturaTotal" readonly="readonly">
                                               </div>
                                           </div>
                                       </div>
@@ -225,43 +237,7 @@
       <!-- /.modal-dialog -->
   </div>
   <!-- /.modal -->
-
-  <div class="modal fade" id="modal-servicios">
-      <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title">Lista de servicios</h4>
-              </div>
-              <div class="modal-body">
-                  <table id="tablaProdcutos" class="table table-bordered table-striped table-hover">
-                      <thead>
-                          <tr>
-                              <th>Codgio</th>
-                              <th>Nombre</th>
-                              <th>Descripcion</th>
-                              <th>Categoria</th>
-                              <th>Opcion</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          
-
-                      </tbody>
-                  </table>
-
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cerrar</button>
-              </div>
-          </div>
-          <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
-                                
+                              
 
   <div class="modal fade" id="modal-empleados">
       <div class="modal-dialog modal-lg">
