@@ -36,7 +36,7 @@
                           <div class="row">
                               <div class="col-md-12">
 
-                                  <form action="<?php echo base_url(); ?>movimientos/ventas/guardar" method="POST" class="form-horizontal">
+                                  <form action="" id='guardar_presupuesto' name="guardar_presupuesto" method="POST" class="form-horizontal">
                                       <div class="form-group">
 
 
@@ -55,7 +55,7 @@
 
                                           <div class="col-md-3">
                                               <label for="">Fecha:</label>
-                                              <input type="date" value="<?php echo date("Y-m-d") ?>" class="form-control" name="fecha" required>
+                                              <input type="date" value="<?php echo date("Y-m-d") ?>" class="form-control" id="fecha" name="fecha" required>
                                           </div>
                                       </div>
                                       <div class="form-group">
@@ -66,7 +66,7 @@
                                           <div class="col-md-3">
                                               <label for="fase_proyecto" class="">Fase de proyecto</label>
                                               <select name="fase_proyecto" id="fase_proyecto" requiered='requiered' class="form-control col-md-7 col-xs-12">
-                                                  <option value="">Seleccione</option>
+                                                  <option value=""></option>
                                                   <option value="Evaluacion del proyecto">Evaluacion del proyecto</option>
                                                   <option value="Aprobado">Aprobado</option>
                                                   <option value="En ejecucion">En ejecucion</option>
@@ -104,28 +104,31 @@
 
                                       <div class="form-group">
                                           <div class="col-md-3">
-                                              <div class="input-group">
+                                              <div class="input-group has-feedback">
                                                   <span class="input-group-addon">Total:</span>
-                                                  <input type="text" class="form-control" placeholder="" value="0.00" name="total" readonly="readonly">
+                                                  <input type="text" class="form-control" placeholder="" id="importeTotal" value="0.00" name="importeTotal" readonly="readonly">
+                                                  <span class="fa fa-dollar form-control-feedback right" aria-hidden="true"></span>
                                               </div>
                                           </div>
                                           <div class="col-md-3">
-                                              <div class="input-group">
+                                              <div class="input-group has-feedback">
                                                   <span class="input-group-addon">Iva:</span>
-                                                  <input type="text" class="form-control" placeholder="" value="0.00" name="iva" readonly="readonly">
+                                                  <input type="text" class="form-control" placeholder="" id="iva" value="0.00" name="iva" readonly="readonly">
+                                                  <span class="fa fa-dollar form-control-feedback right" aria-hidden="true"></span>
                                               </div>
                                           </div>
                                           <div class="col-md-3">
-                                              <div class="input-group">
+                                              <div class="input-group has-feedback">
                                                   <span class="input-group-addon">Total facturado:</span>
-                                                  <input type="text" class="form-control" placeholder="" value="0.00" name="facturaTotal" readonly="readonly">
+                                                  <input type="text" class="form-control" placeholder="" id="facturaTotal" value="0.00" name="facturaTotal" readonly="readonly">
+                                                  <span class="fa fa-dollar form-control-feedback right" aria-hidden="true"></span>
                                               </div>
                                           </div>
                                       </div>
 
                                       <div class="form-group">
                                           <div class="col-md-12">
-                                              <a class="btn btn-primary btn-flat" href="<?php echo site_url("Movimientos/Ventas") ?>" type="button">Volver</a>
+                                              <a class="btn btn-primary btn-flat" href="<?php echo site_url("Movimientos/Presupuesto") ?>" type="button">Volver</a>
                                               <button type="submit" class="btn btn-success btn-flat">Guardar</button>
                                           </div>
 
@@ -197,7 +200,7 @@
                   <h4 class="modal-title">Lista de Clientes</h4>
               </div>
               <div class="modal-body">
-                  <table id="example1" class="table table-bordered table-striped table-hover">
+                  <table id="tabla-cliente" class="table table-bordered table-striped table-hover">
                       <thead>
                           <tr>
                               <th>#</th>
@@ -218,7 +221,7 @@
                                       <?php $dataCliente = $cliente->id_clientes . "*" . $cliente->nombres . "*" . $cliente->tipocliente . "*" . $cliente->tipodocumento . "*" . $cliente->num_documento . "*" . $cliente->telefono . "*" . $cliente->direccion; ?>
 
                                       <td>
-                                          <button type="button" class="btn btn-success btn-check" value="<?php echo $dataCliente ?>"><span class="fa fa-check"></span></button>
+                                          <button type="button" class="btn btn-success btn-check-cliente" value="<?php echo $dataCliente ?>"><span class="fa fa-check"></span></button>
                                       </td>
                                   </tr>
                               <?php endforeach; ?>
@@ -248,7 +251,7 @@
                   <h4 class="modal-title">Lista de Empleados</h4>
               </div>
               <div class="modal-body">
-                  <table id="example1" class="table table-bordered table-striped table-hover">
+                  <table id="tabla-empleado" class="table table-bordered table-striped table-hover">
                       <thead>
                           <tr>
                               <th>#</th>

@@ -85,7 +85,7 @@ class Ventas_model extends CI_Model
     }
     public function guardar_detalle($data)
     {
-        $this->db->insert('detalle_ventas', $data);
+        $this->db->insert('detalle_venta', $data);
     }
     public function borrar_detalle($id_detalle_venta)
     {
@@ -134,9 +134,8 @@ class Ventas_model extends CI_Model
         $this->db->from('ventas v');
         $this->db->join('clientes c', 'v.id_clientes = c.id_clientes');
         $this->db->join('tipo_comprobante tc','v.id_tipo_comprobante = tc.id_tipo_comprobante');
-        $this->db->where('tc.id_tipo_comprobante','3');
+        $this->db->where('v.id_tipo_comprobante','3');
         $resultado = $this->db->get()->result_array();
-
         if (count($resultado) > 0) {
             return $resultado;
         } else {
