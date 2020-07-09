@@ -252,6 +252,88 @@ $(document).ready(function () {
 		});
 
 	});
+	$(document).on('submit', '#editar_presupuesto', function (e) {
+		e.preventDefault();
+		id_ventas = $.trim($('#id_ventas').val());
+		id_cliente = $.trim($('#idcliente').val());
+		fecha = $.trim($('#fecha').val());
+		proyecto = $.trim($('#proyecto').val());
+		fase_proyecto = $.trim($('#fase_proyecto').val());
+		id_empleado = $.trim($('#idempleado').val());
+		importeTotal = $.trim($('#importeTotal').val());
+		iva = $.trim($('#iva').val());
+		facturaTotal = $.trim($('#facturaTotal').val());
+
+		//Datos del detalle de presupuesto
+		cantidad = new Array;
+		dias = new Array;
+		costo = new Array;
+		total = new Array;
+		facturado = new Array;
+		observaciones = new Array;
+		id_categoria = new Array;
+		nombre = new Array;
+		
+		id_categoria2 = document.editar_presupuesto.elements['id_categoria[]'];
+		nombre2 = document.editar_presupuesto.elements['nombre[]'];
+		cantidad2 = document.editar_presupuesto.elements['cantidad[]'];
+		dias2 = document.editar_presupuesto.elements['dias[]'];
+		costo2 = document.editar_presupuesto.elements['costo[]'];
+		total2 = document.editar_presupuesto.elements['total[]'];
+		facturado2 = document.editar_presupuesto.elements['facturado[]'];
+		observaciones2 = document.editar_presupuesto.elements['observaciones[]'];
+
+		if (typeof cantidad2 !== 'undefined') {
+			for (i = 0; i < cantidad2.length; i++) {
+				id_categoria.push(id_categoria2[i].value);
+				nombre.push(nombre2[i].value);
+				cantidad.push(cantidad2[i].value);
+				dias.push(dias2[i].value);
+				costo.push(costo2[i].value);
+				total.push(total2[i].value);
+				facturado.push(facturado2[i].value);
+				observaciones.push(observaciones2[i].value);
+			}
+		}
+
+		$.ajax({
+			type: "POST",
+			url: base_url + "Movimientos/Presupuesto/actualizar",
+			data: {
+				id_ventas: id_ventas,
+				id_cliente: id_cliente,
+				fecha: fecha,
+				proyecto: proyecto,
+				fase_proyecto: fase_proyecto,
+				id_empleado: id_empleado,
+				importeTotal: importeTotal,
+				iva: iva,
+				facturaTotal: facturaTotal,
+				id_categoria: id_categoria,
+				nombre: nombre,
+				cantidad: cantidad,
+				dias: dias,
+				costo: costo,
+				total: total,
+				facturado: facturado,
+				observaciones: observaciones,
+			},
+			dataType: "json",
+			success: function (respuesta) {
+				if (respuesta['tipo'] === 'Exitoso') {
+					window.location.href = base_url + "Movimientos/Presupuesto";
+				} else {
+					swal({
+						title: 'Error',
+						text: respuesta['respuesta'],
+						type: 'error'
+					});
+				}
+
+			}
+		});
+
+	});
 
 })
 

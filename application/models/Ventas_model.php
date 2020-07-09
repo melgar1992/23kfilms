@@ -16,6 +16,15 @@ class Ventas_model extends CI_Model
             return false;
         }
     }
+    public function getCategoriaServicioDetalleVenta($id_venta)
+    {
+        $this->db->select('dv.id_categoria_servicios, cs.nombre');
+        $this->db->from('detalle_venta dv');
+        $this->db->join('categoria_servicios cs','cs.id_categoria_servicios = dv.id_categoria_servicios');
+        $this->db->where('dv.id_ventas', $id_venta);
+        $this->db->group_by('dv.id_categoria_servicios');
+        return $this->db->get()->result_array();
+    }
     public function getVentasporFecha($fechainicio, $fechafin)
     {
 
@@ -44,14 +53,21 @@ class Ventas_model extends CI_Model
         $resultado = $this->db->get();
         return $resultado->row();
     }
-    public function getDetalle($id)
+    public function getDetalles($id)
     {
-        $this->db->select('dt.*, p.codigo, p.nombre, p.stock');
-        $this->db->from('detalle_ventas dt');
-        $this->db->join('productos p', 'dt.id_productos=p.id_productos');
+        $this->db->select('dt.*');
+        $this->db->from('detalle_venta dt');
         $this->db->where("dt.id_ventas", $id);
         $resultados = $this->db->get();
-        return $resultados->result();
+        return $resultados->result_array();
+    }
+    public function getDetalle($id)
+    {
+        $this->db->select('dt.*');
+        $this->db->from('detalle_venta dt');
+        $this->db->where("dt.id_ventas", $id);
+        return $this->db->get()->row_array();
+
     }
     public function getComprobantes()
     {
@@ -90,7 +106,12 @@ class Ventas_model extends CI_Model
     public function borrar_detalle($id_detalle_venta)
     {
         $this->db->where('id_detalle_ventas', $id_detalle_venta);
-        $this->db->delete('detalle_ventas');
+        $this->db->delete('detalle_venta');
+    }
+    public function borrar_detalle_completo($id_ventas)
+    {
+        $this->db->where('id_ventas', $id_ventas);
+        $this->db->delete('detalle_venta');
     }
     public function borrar($id_ventas)
     {

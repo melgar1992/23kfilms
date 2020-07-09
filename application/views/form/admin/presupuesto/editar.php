@@ -3,7 +3,7 @@
       <div class="">
           <div class="page-title">
               <div class="title_left">
-                  <h3>Registrar un nuevo presupuesto</h3>
+                  <h3>Editar presupuesto</h3>
               </div>
 
               <div class="title_right">
@@ -36,17 +36,16 @@
                           <div class="row">
                               <div class="col-md-12">
 
-                                  <form action="" id='guardar_presupuesto' name="guardar_presupuesto" method="POST" class="form-horizontal">
+                                  <form action="" id='editar_presupuesto' name="editar_presupuesto" method="POST" class="form-horizontal">
                                       <div class="form-group">
-
-
                                       </div>
                                       <div class="form-group">
                                           <div class="col-md-3">
                                               <label for="">Cliente:</label>
                                               <div class="input-group">
-                                                  <input type="hidden" name="idcliente" id="idcliente">
-                                                  <input type="text" class="form-control" readonly="readonly" required id="cliente">
+                                                  <input type="hidden" name="id_ventas" id="id_ventas" value="<?php echo $venta->id_ventas ?>">
+                                                  <input type="hidden" name="idcliente" id="idcliente" value="<?php echo $venta->id_clientes ?>">
+                                                  <input type="text" class="form-control" readonly="readonly" required id="cliente" value="<?php echo $venta->nombre_cliente ?>">
                                                   <span class="input-group-btn">
                                                       <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-default"><span class="fa fa-search"></span> Buscar</button>
                                                   </span>
@@ -55,30 +54,30 @@
 
                                           <div class="col-md-3">
                                               <label for="">Fecha:</label>
-                                              <input type="date" value="<?php echo date("Y-m-d") ?>" class="form-control" id="fecha" name="fecha" required>
+                                              <input type="date" value="<?php echo $venta->fecha; ?>" class="form-control" id="fecha" name="fecha" required>
                                           </div>
                                       </div>
                                       <div class="form-group">
                                           <div class="col-md-3">
                                               <label for="proyecto">Nombre proyecto</label>
-                                              <input type="text" name="proyecto" id="proyecto" class="form-control" required>
+                                              <input type="text" value="<?php echo $venta->proyecto ?>" name="proyecto" id="proyecto" class="form-control" required>
                                           </div>
                                           <div class="col-md-3">
                                               <label for="fase_proyecto" class="">Fase de proyecto</label>
                                               <select name="fase_proyecto" id="fase_proyecto" requiered='requiered' class="form-control col-md-7 col-xs-12">
                                                   <option value=""></option>
-                                                  <option value="Evaluacion del proyecto">Evaluacion del proyecto</option>
-                                                  <option value="Aprobado">Aprobado</option>
-                                                  <option value="En ejecucion">En ejecucion</option>
-                                                  <option value="Terminado">Terminado</option>
+                                                  <option <?php echo ($venta->fase_proyecto == 'Evaluacion del proyecto') ? 'selected' : ''; ?> value="Evaluacion del proyecto">Evaluacion del proyecto</option>
+                                                  <option <?php echo ($venta->fase_proyecto == 'Aprobado') ? 'selected' : ''; ?> value="Aprobado">Aprobado</option>
+                                                  <option <?php echo ($venta->fase_proyecto == 'En ejecucion') ? 'selected' : ''; ?> value="En ejecucion">En ejecucion</option>
+                                                  <option <?php echo ($venta->fase_proyecto == 'Terminado') ? 'selected' : ''; ?> value="Terminado">Terminado</option>
 
                                               </select>
                                           </div>
                                           <div class="col-md-3">
                                               <label for="">Empleado a cargo:</label>
                                               <div class="input-group">
-                                                  <input type="hidden" name="idempleado" id="idempleado">
-                                                  <input type="text" class="form-control" readonly="readonly" required id="empleado">
+                                                  <input type="hidden" value="<?php echo $venta->id_empleados ?>" name="idempleado" id="idempleado">
+                                                  <input type="text" value="<?php echo $venta->nombre_empleado . ' ' . $venta->apellidos_empleado; ?>" class="form-control" readonly="readonly" required id="empleado">
                                                   <span class="input-group-btn">
                                                       <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-empleados"><span class="fa fa-search"></span> Buscar</button>
                                                   </span>
@@ -98,29 +97,100 @@
                                       <br></br>
 
                                       <div id="tablas-categorias">
+                                          <?php
+                                            for ($i = 0; $i < count($cant_categoria_detalle); $i++) { ?>
+                                              <div class='tabla-categoria-<?php echo $cant_categoria_detalle[$i]['id_categoria_servicios'] ?>'>
+                                                  <div class='form-group'>
+                                                      <div class='col-md-2'>
+                                                          <button class='btn btn-primary btn-flat btn-block' id='agregar_fila' value='<?php echo $cant_categoria_detalle[$i]['id_categoria_servicios'] ?>' type='button'><span class='fa fa-plus '></span><small></small><?php echo $cant_categoria_detalle[$i]['nombre'] ?></button>
+                                                      </div>
+                                                      <div class='col-md-1 col-md-offset-10'>
+                                                          <button id='eliminar-tabla-categoria' value='tabla-categoria-<?php echo $cant_categoria_detalle[$i]['id_categoria_servicios'] ?>' class='btn btn-danger btn-flat eliminar-tabla-categoria' type='button' title='Eliminar Tabla!'><span class='fa fa-remove'></span></button>
+                                                      </div>
+                                                  </div>
+                                                  <table id='tabla-categoria-<?php echo $cant_categoria_detalle[$i]['id_categoria_servicios'] ?>' class='table jambo_table table-hover'>
+                                                      <thead>
+                                                          <tr>
+                                                              <th>Nombre</th>
+                                                              <th>Cantidad</th>
+                                                              <th>Dias</th>
+                                                              <th>Costo $</th>
+                                                              <th>Total $</th>
+                                                              <th>Facturado $</th>
+                                                              <th>Observaciones</th>
+                                                              <th>Opciones</th>
+                                                          </tr>
+                                                      </thead>
+                                                      <tbody>
+                                                          <?php
+                                                            $total = 0;
+                                                            $facturado = 0;
+                                                            ?>
+                                                          <?php if (!empty($detalle_ventas)) : ?>
+                                                              <?php foreach ($detalle_ventas as $detalle_venta) : ?>
+                                                                  <?php if ($detalle_venta['id_categoria_servicios'] == $cant_categoria_detalle[$i]['id_categoria_servicios']) : ?>
+                                                                      <tr>
+                                                                          <td><input type='hidden' class='id_categoria' name='id_categoria[]' value='<?php echo $detalle_venta['id_categoria_servicios'] ?>'><input type='text' class='nombre form-control' name='nombre[]' value='<?php echo $detalle_venta['nombre'] ?>'></td>
+                                                                          <td><input type='number' step='0.01' value='<?php echo $detalle_venta['cantidad'] ?>' class='cantidad form-control' min='0' name='cantidad[]'></td>
+                                                                          <td><input type='number' step='0.01' value='<?php echo $detalle_venta['dias'] ?>' class='dias form-control' min='0' name='dias[]'></td>
+                                                                          <td><input type='number' step='0.01' value='<?php echo $detalle_venta['costo'] ?>' class='costo form-control' min='0' name='costo[]'></td>
+                                                                          <td><input type='number' step='0.01' value='<?php echo $detalle_venta['total'] ?>' readonly class='total form-control' min='0' name='total[]'></td>
+                                                                          <td><input type='number' step='0.01' value='<?php echo $detalle_venta['facturado'] ?>' readonly class='facturado form-control' min='0' name='facturado[]'></td>
+                                                                          <td><input type='text' maxlength='100' value="<?php echo $detalle_venta['observaciones'] ?>" class='observaciones form-control' min='0' name='observaciones[]'></td>
+                                                                          <td><button type='button' class='btn btn-danger btn-remove-producto' title='Eliminar fila!'><span class='fa fa-remove'></span></button></td>
+                                                                      </tr>
+                                                                  <?php
+                                                                        $total = $total + number_format($detalle_venta['total'], 2);
+                                                                        $facturado = $facturado + number_format($detalle_venta['facturado'], 2);
+                                                                    endif;
+                                                                    ?>
+                                                              <?php endforeach; ?>
+                                                          <?php endif; ?>
+                                                      </tbody>
+                                                      <tfoot>
+                                                          <tr>
+                                                              <th colspan="4">Totales </th>
+                                                              <th>
+                                                                  <p><?php echo number_format($total, 2); ?></p>
+                                                              </th>
+                                                              <th>
+                                                                  <p><?php echo number_format($facturado, 2); ?></p>
+                                                              </th>
+                                                              <th>
+                                                                  <p></p>
+                                                              </th>
+                                                              <th>
+                                                                  <p></p>
+                                                              </th>
+                                                          </tr>
+                                                      </tfoot>
+                                                  </table>
+                                                  <hr>
 
+                                              </div>
 
-                                      </div>                                                           
+                                          <?php } ?>
+                                      </div>
 
                                       <div class="form-group">
                                           <div class="col-md-3">
                                               <div class="input-group has-feedback">
                                                   <span class="input-group-addon">Total:</span>
-                                                  <input type="text" class="form-control" placeholder="" id="importeTotal" value="0.00" name="importeTotal" readonly="readonly">
+                                                  <input type="text" class="form-control" value="<?php echo $venta->importeTotal ?>" placeholder="" id="importeTotal" value="0.00" name="importeTotal" readonly="readonly">
                                                   <span class="fa fa-dollar form-control-feedback right" aria-hidden="true"></span>
                                               </div>
                                           </div>
                                           <div class="col-md-3">
                                               <div class="input-group has-feedback">
                                                   <span class="input-group-addon">Iva:</span>
-                                                  <input type="text" class="form-control" placeholder="" id="iva" value="0.00" name="iva" readonly="readonly">
+                                                  <input type="text" class="form-control" value="<?php echo $venta->iva ?>" placeholder="" id="iva" value="0.00" name="iva" readonly="readonly">
                                                   <span class="fa fa-dollar form-control-feedback right" aria-hidden="true"></span>
                                               </div>
                                           </div>
                                           <div class="col-md-3">
                                               <div class="input-group has-feedback">
                                                   <span class="input-group-addon">Total facturado:</span>
-                                                  <input type="text" class="form-control" placeholder="" id="facturaTotal" value="0.00" name="facturaTotal" readonly="readonly">
+                                                  <input type="text" class="form-control" value="<?php echo $venta->facturaTotal ?>" placeholder="" id="facturaTotal" value="0.00" name="facturaTotal" readonly="readonly">
                                                   <span class="fa fa-dollar form-control-feedback right" aria-hidden="true"></span>
                                               </div>
                                           </div>
@@ -129,7 +199,7 @@
                                       <div class="form-group">
                                           <div class="col-md-12">
                                               <a class="btn btn-primary btn-flat" href="<?php echo site_url("Movimientos/Presupuesto") ?>" type="button">Volver</a>
-                                              <button type="submit" class="btn btn-success btn-flat">Guardar</button>
+                                              <button type="submit" class="btn btn-warning btn-flat">Editar</button>
                                           </div>
 
                                       </div>
@@ -240,7 +310,7 @@
       <!-- /.modal-dialog -->
   </div>
   <!-- /.modal -->
-                              
+
 
   <div class="modal fade" id="modal-empleados">
       <div class="modal-dialog modal-lg">
