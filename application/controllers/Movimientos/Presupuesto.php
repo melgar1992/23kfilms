@@ -10,7 +10,7 @@ class Presupuesto extends BaseController
     public function index()
     {
         $data['presupuestos'] = $this->Ventas_model->getPresupuestos();
-        $this->loadView('Presupuesto', '/form/admin/presupuesto/list',$data);
+        $this->loadView('Presupuesto', '/form/admin/presupuesto/list', $data);
     }
     public function add()
     {
@@ -31,7 +31,6 @@ class Presupuesto extends BaseController
         $data['detalle_ventas'] = $this->Ventas_model->getDetalles($id_venta);
         $data['cant_categoria_detalle'] = $this->Ventas_model->getCategoriaServicioDetalleVenta($id_venta);
         $this->loadView('Presupuesto', '/form/admin/presupuesto/editar', $data);
-
     }
     public function guardar()
     {
@@ -64,48 +63,47 @@ class Presupuesto extends BaseController
             $this->form_validation->set_rules('fase_proyecto', 'fase_proyecto', 'required');
 
             if ($this->form_validation->run()) {
-            //Se obtione el id de los datos de la empresa que este en vigencia.
-            $datosEmpresa = $this->Empresa_model->getEmpresa();
-            if (isset($datosEmpresa)) {
-                $id_empresa = $datosEmpresa->id_empresa;
-                $data = array(
-                    'id_usuarios' => $idusuario,
-                    'id_clientes' => $id_clientes,
-                    'id_tipo_comprobante' => 3,
-                    'id_empresa' => $id_empresa,
-                    'id_empleados' => $id_empleados,
-                    'importeTotal' => $importeTotal,
-                    'facturaTotal' => $facturaTotal,
-                    'proyecto' => $proyecto,
-                    'fecha' => $fecha,
-                    'iva' => $iva,
-                    'fase_proyecto' => $fase_proyecto,
-                    'estado' => '1',
-                );
-
-                if ($this->Ventas_model->guardarVentas($data)) {
-
-                    $idVenta = $this->Ventas_model->ultimoID();
-                    $this->guardar_detalle($idVenta, $id_categoria, $nombre, $cantidad, $dias, $costo, $total, $facturado, $observaciones);
-                    $respuesta = array(
-                        'tipo' => 'Exitoso',
-                        'respuesta' => '',
+                //Se obtione el id de los datos de la empresa que este en vigencia.
+                $datosEmpresa = $this->Empresa_model->getEmpresa();
+                if (isset($datosEmpresa)) {
+                    $id_empresa = $datosEmpresa->id_empresa;
+                    $data = array(
+                        'id_usuarios' => $idusuario,
+                        'id_clientes' => $id_clientes,
+                        'id_tipo_comprobante' => 3,
+                        'id_empresa' => $id_empresa,
+                        'id_empleados' => $id_empleados,
+                        'importeTotal' => $importeTotal,
+                        'facturaTotal' => $facturaTotal,
+                        'proyecto' => $proyecto,
+                        'fecha' => $fecha,
+                        'iva' => $iva,
+                        'fase_proyecto' => $fase_proyecto,
+                        'estado' => '1',
                     );
+
+                    if ($this->Ventas_model->guardarVentas($data)) {
+
+                        $idVenta = $this->Ventas_model->ultimoID();
+                        $this->guardar_detalle($idVenta, $id_categoria, $nombre, $cantidad, $dias, $costo, $total, $facturado, $observaciones);
+                        $respuesta = array(
+                            'tipo' => 'Exitoso',
+                            'respuesta' => '',
+                        );
+                    } else {
+                        $error = 'Ups, ocurrio un error al guardar los datos!, consultar con nanda!!';
+                        $respuesta = array(
+                            'tipo' => 'Error',
+                            'respuesta' => $error
+                        );
+                    }
                 } else {
-                    $error = 'Ups, ocurrio un error al guardar los datos!, consultar con nanda!!';
+                    $error = 'Datos de la empresa no han sido guardados!.';
                     $respuesta = array(
                         'tipo' => 'Error',
                         'respuesta' => $error
                     );
                 }
-            } else {
-                $error = 'Datos de la empresa no han sido guardados!.';
-                $respuesta = array(
-                    'tipo' => 'Error',
-                    'respuesta' => $error
-                );
-            }
-
             } else {
                 $error = 'Error al validar los datos';
                 $respuesta = array(
@@ -156,48 +154,47 @@ class Presupuesto extends BaseController
             $this->form_validation->set_rules('fase_proyecto', 'fase_proyecto', 'required');
 
             if ($this->form_validation->run()) {
-            //Se obtione el id de los datos de la empresa que este en vigencia.
-            $datosEmpresa = $this->Empresa_model->getEmpresa();
-            if (isset($datosEmpresa)) {
-                $id_empresa = $datosEmpresa->id_empresa;
-                $data = array(
-                    'id_usuarios' => $idusuario,
-                    'id_clientes' => $id_clientes,
-                    'id_tipo_comprobante' => 3,
-                    'id_empresa' => $id_empresa,
-                    'id_empleados' => $id_empleados,
-                    'importeTotal' => $importeTotal,
-                    'facturaTotal' => $facturaTotal,
-                    'proyecto' => $proyecto,
-                    'fecha' => $fecha,
-                    'iva' => $iva,
-                    'fase_proyecto' => $fase_proyecto,
-                    'estado' => '1',
-                );
-
-                if ($this->Ventas_model->actualizarVentas($id_ventas ,$data)) {
-
-                    $this->Ventas_model->borrar_detalle_completo($id_ventas);
-                    $this->guardar_detalle($id_ventas, $id_categoria, $nombre, $cantidad, $dias, $costo, $total, $facturado, $observaciones);
-                    $respuesta = array(
-                        'tipo' => 'Exitoso',
-                        'respuesta' => '',
+                //Se obtione el id de los datos de la empresa que este en vigencia.
+                $datosEmpresa = $this->Empresa_model->getEmpresa();
+                if (isset($datosEmpresa)) {
+                    $id_empresa = $datosEmpresa->id_empresa;
+                    $data = array(
+                        'id_usuarios' => $idusuario,
+                        'id_clientes' => $id_clientes,
+                        'id_tipo_comprobante' => 3,
+                        'id_empresa' => $id_empresa,
+                        'id_empleados' => $id_empleados,
+                        'importeTotal' => $importeTotal,
+                        'facturaTotal' => $facturaTotal,
+                        'proyecto' => $proyecto,
+                        'fecha' => $fecha,
+                        'iva' => $iva,
+                        'fase_proyecto' => $fase_proyecto,
+                        'estado' => '1',
                     );
+
+                    if ($this->Ventas_model->actualizarVentas($id_ventas, $data)) {
+
+                        $this->Ventas_model->borrar_detalle_completo($id_ventas);
+                        $this->guardar_detalle($id_ventas, $id_categoria, $nombre, $cantidad, $dias, $costo, $total, $facturado, $observaciones);
+                        $respuesta = array(
+                            'tipo' => 'Exitoso',
+                            'respuesta' => '',
+                        );
+                    } else {
+                        $error = 'Ups, ocurrio un error al guardar los datos!, consultar con nanda!!';
+                        $respuesta = array(
+                            'tipo' => 'Error',
+                            'respuesta' => $error
+                        );
+                    }
                 } else {
-                    $error = 'Ups, ocurrio un error al guardar los datos!, consultar con nanda!!';
+                    $error = 'Datos de la empresa no han sido guardados!.';
                     $respuesta = array(
                         'tipo' => 'Error',
                         'respuesta' => $error
                     );
                 }
-            } else {
-                $error = 'Datos de la empresa no han sido guardados!.';
-                $respuesta = array(
-                    'tipo' => 'Error',
-                    'respuesta' => $error
-                );
-            }
-
             } else {
                 $error = 'Error al validar los datos';
                 $respuesta = array(
@@ -215,7 +212,6 @@ class Presupuesto extends BaseController
 
 
         echo json_encode($respuesta);
-        
     }
 
     private function guardar_detalle($idVenta, $id_categoria, $nombre, $cantidad, $dias, $costo, $total, $facturado, $observaciones)
@@ -236,5 +232,14 @@ class Presupuesto extends BaseController
             $this->Ventas_model->guardar_detalle($data);
         }
     }
-   
+    public function borrar($id_ventas)
+    {
+        $data = array(
+            'estado' => "0",
+
+        );
+        $this->Ventas_model->actualizarVentas($id_ventas, $data);
+        $this->Ventas_model->borrar_detalle_completo($id_ventas);
+        echo "Movimientos/Presupuesto";
+    }
 }
