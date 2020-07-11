@@ -7,11 +7,13 @@ class Ventas_model extends CI_Model
         $this->db->select('v.*, c.nombres');
         $this->db->from('ventas v');
         $this->db->join('clientes c', 'v.id_clientes = c.id_clientes');
-        $resultado = $this->db->get();
+        $this->db->join('tipo_comprobante tc','v.id_tipo_comprobante = tc.id_tipo_comprobante');
+        $this->db->where('v.id_tipo_comprobante !=','3');
+        $this->db->where('v.estado','1');
+        $resultado = $this->db->get()->result_array();
 
-        if ($resultado->num_rows() > 0) {
-
-            return $resultado->result();
+        if (count($resultado) > 0) {
+            return $resultado->result_array();
         } else {
             return false;
         }
@@ -156,6 +158,7 @@ class Ventas_model extends CI_Model
         $this->db->join('clientes c', 'v.id_clientes = c.id_clientes');
         $this->db->join('tipo_comprobante tc','v.id_tipo_comprobante = tc.id_tipo_comprobante');
         $this->db->where('v.id_tipo_comprobante','3');
+        $this->db->where('v.estado','1');
         $resultado = $this->db->get()->result_array();
         if (count($resultado) > 0) {
             return $resultado;

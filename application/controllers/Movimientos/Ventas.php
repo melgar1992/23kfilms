@@ -23,9 +23,9 @@ class Ventas extends BaseController
         $data = array(
             "tipocomprobantes" => $this->Ventas_model->getComprobantes(),
             "clientes" => $this->Clientes_model->getClientes(),
-            "servicios" => $this->Servicios_model->getServicios(),
             "empleados" => $this->Empleado_model->getEmpleados(),
             "categoria_servicios" => $this->Categorias_model->getCategorias(),
+            'presupuestos' => $this->Ventas_model->getPresupuestos(),
         );
         $this->loadView('Ventas', '/form/admin/ventas/add', $data);
     }
@@ -275,7 +275,6 @@ class Ventas extends BaseController
         );
         $this->Productos_model->actualizar($idproducto, $data);
     }
-
     public function vista()
     {
         $id_venta = $this->input->post('id');
@@ -286,5 +285,11 @@ class Ventas extends BaseController
             'encargado' => $this->Ventas_model->getEncargado($id_venta),
         );
         $this->load->view('form/admin/ventas/view', $data);
+    }
+    public function obtenerDetallePresupuesto()
+    {
+        $id_presupuesto = $this->input->post('id_presupuesto');
+        $data['detallePresupuesto'] = $this->ventas_model->getDetalle($id_presupuesto);
+        echo json_encode($data);
     }
 }

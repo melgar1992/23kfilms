@@ -3,7 +3,7 @@
       <div class="">
           <div class="page-title">
               <div class="title_left">
-                  <h3>Registrar venta de servicio</h3>
+                  <h3>Registrar un nuevo proyecto</h3>
               </div>
 
               <div class="title_right">
@@ -16,7 +16,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                   <div class="x_panel">
                       <div class="x_title">
-                          <h2>Formulario de salida de inventario</h2>
+                          <h2>Formulario de Proyecto</h2>
                           <ul class="nav navbar-right panel_toolbox">
                               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                               </li>
@@ -36,7 +36,7 @@
                           <div class="row">
                               <div class="col-md-12">
 
-                                  <form action="<?php echo base_url(); ?>movimientos/ventas/guardar" method="POST" class="form-horizontal">
+                                  <form action="" id='guardar_presupuesto' name="guardar_presupuesto" method="POST" class="form-horizontal">
                                       <div class="form-group">
 
 
@@ -55,7 +55,17 @@
 
                                           <div class="col-md-3">
                                               <label for="">Fecha:</label>
-                                              <input type="date" value="<?php echo date("Y-m-d") ?>" class="form-control" name="fecha" required>
+                                              <input type="date" value="<?php echo date("Y-m-d") ?>" class="form-control" id="fecha" name="fecha" required>
+                                          </div>
+                                          <div class="col-md-3">
+                                              <label for="">Presupuesto:</label>
+                                              <div class="input-group">
+                                                  <input type="hidden" name="id_presupuesto" id="id_presupuesto">
+                                                  <input type="text" class="form-control" readonly="readonly" required id="presupuesto">
+                                                  <span class="input-group-btn">
+                                                      <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-presupuesto"><span class="fa fa-search"></span> Buscar</button>
+                                                  </span>
+                                              </div><!-- /input-group -->
                                           </div>
                                       </div>
                                       <div class="form-group">
@@ -66,7 +76,7 @@
                                           <div class="col-md-3">
                                               <label for="fase_proyecto" class="">Fase de proyecto</label>
                                               <select name="fase_proyecto" id="fase_proyecto" requiered='requiered' class="form-control col-md-7 col-xs-12">
-                                                  <option value="">Seleccione</option>
+                                                  <option value=""></option>
                                                   <option value="Evaluacion del proyecto">Evaluacion del proyecto</option>
                                                   <option value="Aprobado">Aprobado</option>
                                                   <option value="En ejecucion">En ejecucion</option>
@@ -100,20 +110,35 @@
                                       <div id="tablas-categorias">
 
 
-                                      </div>                                                           
+                                      </div>
 
                                       <div class="form-group">
                                           <div class="col-md-3">
-                                              <div class="input-group">
+                                              <div class="input-group has-feedback">
                                                   <span class="input-group-addon">Total:</span>
-                                                  <input type="text" class="form-control" placeholder="" value="0.00" name="subtotal" readonly="readonly">
+                                                  <input type="text" class="form-control" placeholder="" id="importeTotal" value="0.00" name="importeTotal" readonly="readonly">
+                                                  <span class="fa fa-dollar form-control-feedback right" aria-hidden="true"></span>
+                                              </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                              <div class="input-group has-feedback">
+                                                  <span class="input-group-addon">Iva:</span>
+                                                  <input type="text" class="form-control" placeholder="" id="iva" value="0.00" name="iva" readonly="readonly">
+                                                  <span class="fa fa-dollar form-control-feedback right" aria-hidden="true"></span>
+                                              </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                              <div class="input-group has-feedback">
+                                                  <span class="input-group-addon">Total facturado:</span>
+                                                  <input type="text" class="form-control" placeholder="" id="facturaTotal" value="0.00" name="facturaTotal" readonly="readonly">
+                                                  <span class="fa fa-dollar form-control-feedback right" aria-hidden="true"></span>
                                               </div>
                                           </div>
                                       </div>
 
                                       <div class="form-group">
                                           <div class="col-md-12">
-                                              <a class="btn btn-primary btn-flat" href="<?php echo site_url("Movimientos/Ventas") ?>" type="button">Volver</a>
+                                              <a class="btn btn-primary btn-flat" href="<?php echo site_url("Movimientos/Presupuesto") ?>" type="button">Volver</a>
                                               <button type="submit" class="btn btn-success btn-flat">Guardar</button>
                                           </div>
 
@@ -185,7 +210,7 @@
                   <h4 class="modal-title">Lista de Clientes</h4>
               </div>
               <div class="modal-body">
-                  <table id="example1" class="table table-bordered table-striped table-hover">
+                  <table id="tabla-cliente" class="table table-bordered table-striped table-hover">
                       <thead>
                           <tr>
                               <th>#</th>
@@ -206,7 +231,7 @@
                                       <?php $dataCliente = $cliente->id_clientes . "*" . $cliente->nombres . "*" . $cliente->tipocliente . "*" . $cliente->tipodocumento . "*" . $cliente->num_documento . "*" . $cliente->telefono . "*" . $cliente->direccion; ?>
 
                                       <td>
-                                          <button type="button" class="btn btn-success btn-check" value="<?php echo $dataCliente ?>"><span class="fa fa-check"></span></button>
+                                          <button type="button" class="btn btn-success btn-check-cliente" value="<?php echo $dataCliente ?>"><span class="fa fa-check"></span></button>
                                       </td>
                                   </tr>
                               <?php endforeach; ?>
@@ -226,42 +251,6 @@
   </div>
   <!-- /.modal -->
 
-  <div class="modal fade" id="modal-servicios">
-      <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title">Lista de servicios</h4>
-              </div>
-              <div class="modal-body">
-                  <table id="tablaProdcutos" class="table table-bordered table-striped table-hover">
-                      <thead>
-                          <tr>
-                              <th>Codgio</th>
-                              <th>Nombre</th>
-                              <th>Descripcion</th>
-                              <th>Categoria</th>
-                              <th>Opcion</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          
-
-                      </tbody>
-                  </table>
-
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cerrar</button>
-              </div>
-          </div>
-          <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
-                                
 
   <div class="modal fade" id="modal-empleados">
       <div class="modal-dialog modal-lg">
@@ -272,7 +261,7 @@
                   <h4 class="modal-title">Lista de Empleados</h4>
               </div>
               <div class="modal-body">
-                  <table id="example1" class="table table-bordered table-striped table-hover">
+                  <table id="tabla-empleado" class="table table-bordered table-striped table-hover">
                       <thead>
                           <tr>
                               <th>#</th>
@@ -298,6 +287,60 @@
 
                                       <td>
                                           <button type="button" class="btn btn-success btn-check-empleado" value="<?php echo $dataempleado ?>"><span class="fa fa-check"></span></button>
+                                      </td>
+                                  </tr>
+                              <?php endforeach; ?>
+                          <?php endif; ?>
+
+                      </tbody>
+                  </table>
+
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cerrar</button>
+              </div>
+          </div>
+          <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+  <div class="modal fade" id="modal-presupuesto">
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">Lista de Presupuesto</h4>
+              </div>
+              <div class="modal-body">
+                  <table id="tabla-presupuesto" class="table table-bordered table-striped table-hover">
+                      <thead>
+                          <tr>
+                              <th>#</th>
+                              <th>Nombres Cliente</th>
+                              <th>Fecha</th>
+                              <th>Total</th>
+                              <th>Total Facturado</th>
+                              <th>Nombre proyecto</th>
+                              <th>Estado proyecto</th>
+                              <th>Opciones</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <?php if (!empty($presupuestos)) : ?>
+                              <?php foreach ($presupuestos as $row) : ?>
+                                  <tr>
+                                      <td><?php echo $row['id_ventas']; ?></td>
+                                      <td><?php echo $row['nombres']; ?></td>
+                                      <td><?php echo $row['fecha']; ?></td>
+                                      <td><?php echo $row['importeTotal']; ?></td>
+                                      <td><?php echo $row['facturaTotal']; ?></td>
+                                      <td><?php echo $row['proyecto']; ?></td>
+                                      <td><?php echo $row['fase_proyecto']; ?></td>
+                                      <?php $presupuesto = $row['id_ventas'] . "*" . $row['proyecto'] . "*" . $row['fecha'] ; ?>
+                                      <td>
+                                          <button type="button" class="btn btn-success btn-check-presupuesto" value="<?php echo $presupuesto ?>"><span class="fa fa-check"></span></button>
                                       </td>
                                   </tr>
                               <?php endforeach; ?>
