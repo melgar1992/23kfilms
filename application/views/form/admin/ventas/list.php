@@ -60,8 +60,8 @@
                                           </tr>
                                       </thead>
                                       <tbody>
-                                          <?php if (!empty($presupuestos)) : ?>
-                                              <?php foreach ($presupuestos as $row) : ?>
+                                          <?php if (!empty($ventas)) : ?>
+                                              <?php foreach ($ventas as $row) : ?>
                                                   <tr>
                                                       <td><?php echo $row['id_ventas']; ?></td>
                                                       <td><?php echo $row['nombres']; ?></td>
@@ -71,8 +71,8 @@
                                                       <td><?php echo $row['proyecto']; ?></td>
                                                       <td><?php echo $row['fase_proyecto']; ?></td>
                                                       <td>
-                                                          <button type="button" class="btn btn-info btn-view-presupuesto" data-toggle="modal" data-target="#modal-default" value="<?php echo $row['id_ventas'] ?>"><span class="fa fa-search"></span></button>
-                                                          <a href="<?php echo base_url() ?>Movimientos/Presupuesto/editar/<?php echo $row['id_ventas']; ?>" class="btn btn-warning"><span class="fa fa-pencil"></span></a>
+                                                          <button type="button" class="btn btn-info btn-view-ventas" data-toggle="modal" data-target="#modal-default" value="<?php echo $row['id_ventas'] ?>"><span class="fa fa-search"></span></button>
+                                                          <a href="<?php echo base_url() ?>Movimientos/Ventas/editar/<?php echo $row['id_ventas']; ?>" class="btn btn-warning"><span class="fa fa-pencil"></span></a>
                                                           <button type="button" value="<?php echo  $row['id_ventas']; ?>" class="btn btn-danger btn-borrar"><span class="fa fa-remove"></span></button>
                                                       </td>
                                                   </tr>

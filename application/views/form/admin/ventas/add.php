@@ -36,7 +36,7 @@
                           <div class="row">
                               <div class="col-md-12">
 
-                                  <form action="" id='guardar_presupuesto' name="guardar_presupuesto" method="POST" class="form-horizontal">
+                                  <form action="" id='guardar_proyecto' name="guardar_proyecto" method="POST" class="form-horizontal">
                                       <div class="form-group">
 
 
@@ -52,13 +52,22 @@
                                                   </span>
                                               </div><!-- /input-group -->
                                           </div>
-
+                                          <div class="col-md-3">
+                                              <label for="">Empleado a cargo:</label>
+                                              <div class="input-group">
+                                                  <input type="hidden" name="idempleado" id="idempleado">
+                                                  <input type="text" class="form-control" readonly="readonly" required id="empleado">
+                                                  <span class="input-group-btn">
+                                                      <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-empleados"><span class="fa fa-search"></span> Buscar</button>
+                                                  </span>
+                                              </div><!-- /input-group -->
+                                          </div>
                                           <div class="col-md-3">
                                               <label for="">Fecha:</label>
                                               <input type="date" value="<?php echo date("Y-m-d") ?>" class="form-control" id="fecha" name="fecha" required>
                                           </div>
                                           <div class="col-md-3">
-                                              <label for="">Presupuesto:</label>
+                                              <label for="">Presupuesto vinculado:</label>
                                               <div class="input-group">
                                                   <input type="hidden" name="id_presupuesto" id="id_presupuesto">
                                                   <input type="text" class="form-control" readonly="readonly" required id="presupuesto">
@@ -85,16 +94,14 @@
                                               </select>
                                           </div>
                                           <div class="col-md-3">
-                                              <label for="">Empleado a cargo:</label>
-                                              <div class="input-group">
-                                                  <input type="hidden" name="idempleado" id="idempleado">
-                                                  <input type="text" class="form-control" readonly="readonly" required id="empleado">
-                                                  <span class="input-group-btn">
-                                                      <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-empleados"><span class="fa fa-search"></span> Buscar</button>
-                                                  </span>
-                                              </div><!-- /input-group -->
+                                              <label for="id_tipo_comprobante" class="">Tipo de comprobante</label>
+                                              <select name="id_tipo_comprobante" id="id_tipo_comprobante" requiered='requiered' class="form-control col-md-7 col-xs-12">
+                                                  <option value=""></option>
+                                                  <option value="1">Facturado</option>
+                                                  <option value="2">Recibo</option>
+                                  
+                                              </select>
                                           </div>
-
                                       </div>
 
                                       <label for="Productos" class="col-md-12">Buscar y agregar una categoria de servicio para comenzar el proyecto</label>
@@ -138,7 +145,7 @@
 
                                       <div class="form-group">
                                           <div class="col-md-12">
-                                              <a class="btn btn-primary btn-flat" href="<?php echo site_url("Movimientos/Presupuesto") ?>" type="button">Volver</a>
+                                              <a class="btn btn-primary btn-flat" href="<?php echo site_url("Movimientos/Ventas") ?>" type="button">Volver</a>
                                               <button type="submit" class="btn btn-success btn-flat">Guardar</button>
                                           </div>
 
@@ -338,7 +345,7 @@
                                       <td><?php echo $row['facturaTotal']; ?></td>
                                       <td><?php echo $row['proyecto']; ?></td>
                                       <td><?php echo $row['fase_proyecto']; ?></td>
-                                      <?php $presupuesto = $row['id_ventas'] . "*" . $row['proyecto'] . "*" . $row['fecha'] ; ?>
+                                      <?php $presupuesto = $row['id_ventas'] . "*" . $row['proyecto'] . "*" . $row['fecha']; ?>
                                       <td>
                                           <button type="button" class="btn btn-success btn-check-presupuesto" value="<?php echo $presupuesto ?>"><span class="fa fa-check"></span></button>
                                       </td>

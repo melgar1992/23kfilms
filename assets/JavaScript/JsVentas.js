@@ -101,18 +101,19 @@ $(document).ready(function () {
 		presupuesto = $(this).val();
 		infopresupuesto = presupuesto.split("*");
 		id_presupuesto = infopresupuesto[0];
+		$("#id_presupuesto").val(infopresupuesto[0]);
+		$("#presupuesto").val(infopresupuesto[1]);
 		Swal.fire({
-			title: 'Esta seguro vincular con el presupuesto?',
-			text: "Al vincular con el presupuesto, se reestablecera todas las tablas con la del presupuesto.",
+			title: 'Desea copiar las tablas del presupuesto?',
+			text: "Al copiar las tablas del presupuesto, se perderan todas las tablas del proyecto.",
 			type: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',
-			confirmButtonText: 'Si, deseo vincular!',
+			confirmButtonText: 'Si, deseo copiar!',
 			cancelButtonText: 'Cancelar'
 		}).then((result) => {
 			if (result.value) {
-
 				$.ajax({
 					type: "POST",
 					url: base_url + 'Movimientos/Ventas/obtenerDetallePresupuesto',
@@ -120,17 +121,16 @@ $(document).ready(function () {
 						id_presupuesto: id_presupuesto,
 					},
 					dataType: "json",
-					success: function (respuesta) {
-
-						$("#id_presupuesto").val(infopresupuesto[0]);
-						$("#presupuesto").val(infopresupuesto[1]);
+					success: function (detallePresupuesto) {
+						$('#tablas-categorias').empty();
+						limparTotales();
+						agregarTablaCategoriaPresupuesto(detallePresupuesto);
 						$("#modal-presupuesto").modal("hide");
 					}
 				});
 
-
-
-
+			} else {
+				$("#modal-presupuesto").modal("hide");
 
 			}
 		})
@@ -202,7 +202,7 @@ $(document).ready(function () {
 
 		Swal.fire({
 			title: 'Esta seguro de elimar?',
-			text: "La salida de vestuario se eliminara!",
+			text: "El proyecto se eliminara!",
 			type: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: '#3085d6',
@@ -231,9 +231,11 @@ $(document).ready(function () {
 		id_tabla = $(this).closest('tr').closest('tbody').closest('table').attr('id');
 		sumarTabla(id_tabla);
 	});
-	$(document).on('submit', '#guardar_presupuesto', function (e) {
+	$(document).on('submit', '#guardar_proyecto', function (e) {
 		e.preventDefault();
 		id_cliente = $.trim($('#idcliente').val());
+		id_presupuesto = $.trim($('#id_presupuesto').val());
+		id_tipo_comprobante = $.trim($('#id_tipo_comprobante').val());
 		fecha = $.trim($('#fecha').val());
 		proyecto = $.trim($('#proyecto').val());
 		fase_proyecto = $.trim($('#fase_proyecto').val());
@@ -252,14 +254,14 @@ $(document).ready(function () {
 		id_categoria = new Array;
 		nombre = new Array;
 
-		id_categoria2 = document.guardar_presupuesto.elements['id_categoria[]'];
-		nombre2 = document.guardar_presupuesto.elements['nombre[]'];
-		cantidad2 = document.guardar_presupuesto.elements['cantidad[]'];
-		dias2 = document.guardar_presupuesto.elements['dias[]'];
-		costo2 = document.guardar_presupuesto.elements['costo[]'];
-		total2 = document.guardar_presupuesto.elements['total[]'];
-		facturado2 = document.guardar_presupuesto.elements['facturado[]'];
-		observaciones2 = document.guardar_presupuesto.elements['observaciones[]'];
+		id_categoria2 = document.guardar_proyecto.elements['id_categoria[]'];
+		nombre2 = document.guardar_proyecto.elements['nombre[]'];
+		cantidad2 = document.guardar_proyecto.elements['cantidad[]'];
+		dias2 = document.guardar_proyecto.elements['dias[]'];
+		costo2 = document.guardar_proyecto.elements['costo[]'];
+		total2 = document.guardar_proyecto.elements['total[]'];
+		facturado2 = document.guardar_proyecto.elements['facturado[]'];
+		observaciones2 = document.guardar_proyecto.elements['observaciones[]'];
 
 		if (typeof cantidad2 !== 'undefined') {
 			for (i = 0; i < cantidad2.length; i++) {
@@ -276,9 +278,11 @@ $(document).ready(function () {
 
 		$.ajax({
 			type: "POST",
-			url: base_url + "Movimientos/Presupuesto/guardar",
+			url: base_url + "Movimientos/Ventas/guardar",
 			data: {
 				id_cliente: id_cliente,
+				id_presupuesto: id_presupuesto,
+				id_tipo_comprobante: id_tipo_comprobante,
 				fecha: fecha,
 				proyecto: proyecto,
 				fase_proyecto: fase_proyecto,
@@ -298,7 +302,7 @@ $(document).ready(function () {
 			dataType: "json",
 			success: function (respuesta) {
 				if (respuesta['tipo'] === 'Exitoso') {
-					window.location.href = base_url + "Movimientos/Presupuesto";
+					window.location.href = base_url + "Movimientos/Ventas";
 				} else {
 					swal({
 						title: 'Error',
@@ -311,9 +315,11 @@ $(document).ready(function () {
 		});
 
 	});
-	$(document).on('submit', '#editar_presupuesto', function (e) {
+	$(document).on('submit', '#editar_proyecto', function (e) {
 		e.preventDefault();
 		id_ventas = $.trim($('#id_ventas').val());
+		id_presupuesto = $.trim($('#id_presupuesto').val());
+		id_tipo_comprobante = $.trim($('#id_tipo_comprobante').val());
 		id_cliente = $.trim($('#idcliente').val());
 		fecha = $.trim($('#fecha').val());
 		proyecto = $.trim($('#proyecto').val());
@@ -333,14 +339,14 @@ $(document).ready(function () {
 		id_categoria = new Array;
 		nombre = new Array;
 
-		id_categoria2 = document.editar_presupuesto.elements['id_categoria[]'];
-		nombre2 = document.editar_presupuesto.elements['nombre[]'];
-		cantidad2 = document.editar_presupuesto.elements['cantidad[]'];
-		dias2 = document.editar_presupuesto.elements['dias[]'];
-		costo2 = document.editar_presupuesto.elements['costo[]'];
-		total2 = document.editar_presupuesto.elements['total[]'];
-		facturado2 = document.editar_presupuesto.elements['facturado[]'];
-		observaciones2 = document.editar_presupuesto.elements['observaciones[]'];
+		id_categoria2 = document.editar_proyecto.elements['id_categoria[]'];
+		nombre2 = document.editar_proyecto.elements['nombre[]'];
+		cantidad2 = document.editar_proyecto.elements['cantidad[]'];
+		dias2 = document.editar_proyecto.elements['dias[]'];
+		costo2 = document.editar_proyecto.elements['costo[]'];
+		total2 = document.editar_proyecto.elements['total[]'];
+		facturado2 = document.editar_proyecto.elements['facturado[]'];
+		observaciones2 = document.editar_proyecto.elements['observaciones[]'];
 
 		if (typeof cantidad2 !== 'undefined') {
 			for (i = 0; i < cantidad2.length; i++) {
@@ -357,10 +363,12 @@ $(document).ready(function () {
 
 		$.ajax({
 			type: "POST",
-			url: base_url + "Movimientos/Presupuesto/actualizar",
+			url: base_url + "Movimientos/Ventas/actualizar",
 			data: {
 				id_ventas: id_ventas,
 				id_cliente: id_cliente,
+				id_presupuesto: id_presupuesto,
+				id_tipo_comprobante: id_tipo_comprobante,
 				fecha: fecha,
 				proyecto: proyecto,
 				fase_proyecto: fase_proyecto,
@@ -380,7 +388,7 @@ $(document).ready(function () {
 			dataType: "json",
 			success: function (respuesta) {
 				if (respuesta['tipo'] === 'Exitoso') {
-					window.location.href = base_url + "Movimientos/Presupuesto";
+					window.location.href = base_url + "Movimientos/Ventas";
 				} else {
 					swal({
 						title: 'Error',
@@ -494,6 +502,86 @@ function agregarTablaCategoria(categoria) {
 
 }
 
+function agregarServicioPresupuesto(detallePresupuesto) {
+
+	id_categoria = detallePresupuesto['id_categoria_servicios'];
+	nombre = detallePresupuesto['nombre'];
+	cantidad = detallePresupuesto['cantidad'];
+	dias = detallePresupuesto['dias'];
+	costo = detallePresupuesto['costo'];
+	total = detallePresupuesto['total'];
+	facturado = detallePresupuesto['facturado'];
+	observaciones = detallePresupuesto['observaciones'];
+
+	html = "<tr>";
+	html += "<td><input type ='hidden' class='id_categoria' name = 'id_categoria[]' value = '" + id_categoria + "'><input type='text' class='nombre form-control' name= 'nombre[]' value ='" + nombre + "'></td>";
+	html += "<td><input type = 'number' step = '0.01' value = '" + cantidad + "' class='cantidad form-control' min = '0' name = 'cantidad[]' ></td>";
+	html += "<td><input type = 'number' step = '0.01' value = '" + dias + "' class='dias form-control' min = '0' name = 'dias[]' ></td>";
+	html += "<td><input type = 'number' step = '0.01' value = '" + costo + "' class='costo form-control' min = '0' name = 'costo[]' ></td>";
+	html += "<td><input type = 'number' step = '0.01' value = '" + total + "' readonly class='total form-control' min = '0' name = 'total[]'  ></td>";
+	html += "<td><input type = 'number' step = '0.01' value = '" + facturado + "' readonly class='facturado form-control' min = '0' name = 'facturado[]' ></td>";
+	html += "<td><input type = 'text' maxlength='100' value = '" + observaciones + "'  class='observaciones form-control' min = '0' name = 'observaciones[]' ></td>";
+	html += "<td><button type='button' class='btn btn-danger btn-remove-producto' title = 'Eliminar fila!'><span class='fa fa-remove'></span></button></td>";
+	html += "</tr>";
+	$("#tabla-categoria-" + id_categoria + " tbody").append(html);
+
+}
+
+function agregarTablaCategoriaPresupuesto(detallePresupuesto) {
+
+	for (let i = 0; i < detallePresupuesto['cant_categoria_detalle'].length; i++) {
+		id_categoria_servicios = detallePresupuesto['cant_categoria_detalle'][i]['id_categoria_servicios'];
+		html = "<div class = 'tabla-categoria-" + id_categoria_servicios + "'>";
+		html += "<div class = 'form-group'>";
+		html += "<div class = 'col-md-2'>";
+		html += "<button class='btn btn-primary btn-flat btn-block' id = 'agregar_fila' value = '" + id_categoria_servicios + "' type='button'><span class='fa fa-plus '></span><small> " + detallePresupuesto['cant_categoria_detalle'][i]['nombre'] + "</small></button>";
+		html += "</div>";
+		html += "<div class = 'col-md-1 col-md-offset-10'>"
+		html += "<button id = 'eliminar-tabla-categoria' value = 'tabla-categoria-" + id_categoria_servicios + "' class='btn btn-danger btn-flat eliminar-tabla-categoria' type='button' title = 'Eliminar Tabla!'><span class='fa fa-remove'></span></button>";
+		html += "</div>";
+		html += "</div>";
+		html += "<table id='tabla-categoria-" + id_categoria_servicios + "' class='table jambo_table table-hover'>";
+		html += "<thead>";
+		html += "<tr>";
+		html += "<th>Nombre</th>";
+		html += "<th>Cantidad</th>";
+		html += "<th>Dias</th>";
+		html += "<th>Costo $</th>";
+		html += "<th>Total $</th>";
+		html += "<th>Facturado $</th>";
+		html += "<th>Observaciones</th>";
+		html += "<th>Opciones</th>";
+		html += "</tr>";
+		html += "</thead>";
+		html += "<tbody>";
+		html += "</tbody>";
+		html += "<tfoot>";
+		html += '<tr>';
+		html += '<th colspan = "4">Totales </th>';
+		html += '<th><p>0</p></th>';
+		html += '<th><p>0</p></th>';
+		html += '<th><p></p></th>';
+		html += '<th><p></p></th>';
+		html += '</tr>';
+		html += "</tfoot>";
+		html += "</table>";
+		html += "<hr>";
+		html += "</div>";
+		$("#tablas-categorias").append(html);
+		for (let b = 0; b < detallePresupuesto['detallePresupuesto'].length; b++) {
+			if (id_categoria_servicios == detallePresupuesto['detallePresupuesto'][b]['id_categoria_servicios']) {
+				agregarServicioPresupuesto(detallePresupuesto['detallePresupuesto'][b]);
+			}
+		}
+		id_tabla = 'tabla-categoria-' + id_categoria_servicios;
+		sumarTabla(id_tabla);
+	}
+
+
+
+
+}
+
 function sumarTabla(id_tabla) {
 	sumaTotal = 0;
 	sumaFacturado = 0;
@@ -547,4 +635,11 @@ function sumarTotales(difTotalTabla) {
 	$("input[name=iva]").val(iva.toFixed(2));
 	$("input[name=facturaTotal]").val(totalFacturado.toFixed(2));
 
+}
+
+function limparTotales() {
+	valor = 0;
+	$("input[name=importeTotal]").val(valor.toFixed(2));
+	$("input[name=iva]").val(valor.toFixed(2));
+	$("input[name=facturaTotal]").val(valor.toFixed(2));
 }

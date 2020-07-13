@@ -36,16 +36,16 @@
                           <div class="row">
                               <div class="col-md-12">
 
-                                  <form action="" id='editar_presupuesto' name="editar_presupuesto" method="POST" class="form-horizontal">
+                                  <form action="" id='editar_proyecto' name="editar_proyecto" method="POST" class="form-horizontal">
                                       <div class="form-group">
                                       </div>
                                       <div class="form-group">
                                           <div class="col-md-3">
                                               <label for="">Cliente:</label>
                                               <div class="input-group">
-                                                  <input type="hidden" name="id_ventas" id="id_ventas" value="<?php echo $venta->id_ventas ?>">
-                                                  <input type="hidden" name="idcliente" id="idcliente" value="<?php echo $venta->id_clientes ?>">
-                                                  <input type="text" class="form-control" readonly="readonly" required id="cliente" value="<?php echo $venta->nombre_cliente ?>">
+                                                  <input type="hidden" name="id_ventas" id="id_ventas" value="<?php echo $proyecto->id_ventas ?>">
+                                                  <input type="hidden" name="idcliente" id="idcliente" value="<?php echo $proyecto->id_clientes ?>">
+                                                  <input type="text" class="form-control" readonly="readonly" required id="cliente" value="<?php echo $proyecto->nombre_cliente ?>">
                                                   <span class="input-group-btn">
                                                       <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-default"><span class="fa fa-search"></span> Buscar</button>
                                                   </span>
@@ -54,35 +54,55 @@
 
                                           <div class="col-md-3">
                                               <label for="">Fecha:</label>
-                                              <input type="date" value="<?php echo $venta->fecha; ?>" class="form-control" id="fecha" name="fecha" required>
-                                          </div>
-                                      </div>
-                                      <div class="form-group">
-                                          <div class="col-md-3">
-                                              <label for="proyecto">Nombre proyecto</label>
-                                              <input type="text" value="<?php echo $venta->proyecto ?>" name="proyecto" id="proyecto" class="form-control" required>
-                                          </div>
-                                          <div class="col-md-3">
-                                              <label for="fase_proyecto" class="">Fase de proyecto</label>
-                                              <select name="fase_proyecto" id="fase_proyecto" requiered='requiered' class="form-control col-md-7 col-xs-12">
-                                                  <option value=""></option>
-                                                  <option <?php echo ($venta->fase_proyecto == 'Evaluacion del proyecto') ? 'selected' : ''; ?> value="Evaluacion del proyecto">Evaluacion del proyecto</option>
-                                                  <option <?php echo ($venta->fase_proyecto == 'Aprobado') ? 'selected' : ''; ?> value="Aprobado">Aprobado</option>
-                                                  <option <?php echo ($venta->fase_proyecto == 'En ejecucion') ? 'selected' : ''; ?> value="En ejecucion">En ejecucion</option>
-                                                  <option <?php echo ($venta->fase_proyecto == 'Terminado') ? 'selected' : ''; ?> value="Terminado">Terminado</option>
-
-                                              </select>
+                                              <input type="date" value="<?php echo $proyecto->fecha; ?>" class="form-control" id="fecha" name="fecha" required>
                                           </div>
                                           <div class="col-md-3">
                                               <label for="">Empleado a cargo:</label>
                                               <div class="input-group">
-                                                  <input type="hidden" value="<?php echo $venta->id_empleados ?>" name="idempleado" id="idempleado">
-                                                  <input type="text" value="<?php echo $venta->nombre_empleado . ' ' . $venta->apellidos_empleado; ?>" class="form-control" readonly="readonly" required id="empleado">
+                                                  <input type="hidden" value="<?php echo $proyecto->id_empleados ?>" name="idempleado" id="idempleado">
+                                                  <input type="text" value="<?php echo $proyecto->nombre_empleado . ' ' . $proyecto->apellidos_empleado; ?>" class="form-control" readonly="readonly" required id="empleado">
                                                   <span class="input-group-btn">
                                                       <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-empleados"><span class="fa fa-search"></span> Buscar</button>
                                                   </span>
                                               </div><!-- /input-group -->
                                           </div>
+                                          <div class="col-md-3">
+                                              <label for="">Presupuesto vinculado:</label>
+                                              <div class="input-group">
+                                                  <input type="hidden" value="<?php echo $proyecto->id_presupuesto ?>" name="id_presupuesto" id="id_presupuesto">
+                                                  <input type="text" value="<?php echo $proyecto->nombreProyecto; ?>" class="form-control" readonly="readonly" required id="empleado">
+                                                  <span class="input-group-btn">
+                                                      <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-presupuesto"><span class="fa fa-search"></span> Buscar</button>
+                                                  </span>
+                                              </div><!-- /input-group -->
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <div class="col-md-3">
+                                              <label for="proyecto">Nombre proyecto</label>
+                                              <input type="text" value="<?php echo $proyecto->proyecto ?>" name="proyecto" id="proyecto" class="form-control" required>
+                                          </div>
+                                          <div class="col-md-3">
+                                              <label for="fase_proyecto" class="">Fase de proyecto</label>
+                                              <select name="fase_proyecto" id="fase_proyecto" requiered='requiered' class="form-control col-md-7 col-xs-12">
+                                                  <option value=""></option>
+                                                  <option <?php echo ($proyecto->fase_proyecto == 'Evaluacion del proyecto') ? 'selected' : ''; ?> value="Evaluacion del proyecto">Evaluacion del proyecto</option>
+                                                  <option <?php echo ($proyecto->fase_proyecto == 'Aprobado') ? 'selected' : ''; ?> value="Aprobado">Aprobado</option>
+                                                  <option <?php echo ($proyecto->fase_proyecto == 'En ejecucion') ? 'selected' : ''; ?> value="En ejecucion">En ejecucion</option>
+                                                  <option <?php echo ($proyecto->fase_proyecto == 'Terminado') ? 'selected' : ''; ?> value="Terminado">Terminado</option>
+
+                                              </select>
+                                          </div>
+                                          <div class="col-md-3">
+                                              <label for="id_tipo_comprobante" class="">Tipo de comprobante</label>
+                                              <select name="id_tipo_comprobante" id="id_tipo_comprobante" requiered='requiered' class="form-control col-md-7 col-xs-12">
+                                                  <option value=""></option>
+                                                  <option <?php echo ($proyecto->id_tipo_comprobante == '1') ? 'selected' : ''; ?> value="1">Facturado</option>
+                                                  <option <?php echo ($proyecto->id_tipo_comprobante == '2') ? 'selected' : ''; ?> value="2">Recibo</option>
+
+                                              </select>
+                                          </div>
+
 
                                       </div>
 
@@ -176,21 +196,21 @@
                                           <div class="col-md-3">
                                               <div class="input-group has-feedback">
                                                   <span class="input-group-addon">Total:</span>
-                                                  <input type="text" class="form-control" value="<?php echo $venta->importeTotal ?>" placeholder="" id="importeTotal" value="0.00" name="importeTotal" readonly="readonly">
+                                                  <input type="text" class="form-control" value="<?php echo $proyecto->importeTotal ?>" placeholder="" id="importeTotal" value="0.00" name="importeTotal" readonly="readonly">
                                                   <span class="fa fa-dollar form-control-feedback right" aria-hidden="true"></span>
                                               </div>
                                           </div>
                                           <div class="col-md-3">
                                               <div class="input-group has-feedback">
                                                   <span class="input-group-addon">Iva:</span>
-                                                  <input type="text" class="form-control" value="<?php echo $venta->iva ?>" placeholder="" id="iva" value="0.00" name="iva" readonly="readonly">
+                                                  <input type="text" class="form-control" value="<?php echo $proyecto->iva ?>" placeholder="" id="iva" value="0.00" name="iva" readonly="readonly">
                                                   <span class="fa fa-dollar form-control-feedback right" aria-hidden="true"></span>
                                               </div>
                                           </div>
                                           <div class="col-md-3">
                                               <div class="input-group has-feedback">
                                                   <span class="input-group-addon">Total facturado:</span>
-                                                  <input type="text" class="form-control" value="<?php echo $venta->facturaTotal ?>" placeholder="" id="facturaTotal" value="0.00" name="facturaTotal" readonly="readonly">
+                                                  <input type="text" class="form-control" value="<?php echo $proyecto->facturaTotal ?>" placeholder="" id="facturaTotal" value="0.00" name="facturaTotal" readonly="readonly">
                                                   <span class="fa fa-dollar form-control-feedback right" aria-hidden="true"></span>
                                               </div>
                                           </div>
@@ -198,7 +218,7 @@
 
                                       <div class="form-group">
                                           <div class="col-md-12">
-                                              <a class="btn btn-primary btn-flat" href="<?php echo site_url("Movimientos/Presupuesto") ?>" type="button">Volver</a>
+                                              <a class="btn btn-primary btn-flat" href="<?php echo site_url("Movimientos/Ventas") ?>" type="button">Volver</a>
                                               <button type="submit" class="btn btn-warning btn-flat">Editar</button>
                                           </div>
 
@@ -347,6 +367,60 @@
 
                                       <td>
                                           <button type="button" class="btn btn-success btn-check-empleado" value="<?php echo $dataempleado ?>"><span class="fa fa-check"></span></button>
+                                      </td>
+                                  </tr>
+                              <?php endforeach; ?>
+                          <?php endif; ?>
+
+                      </tbody>
+                  </table>
+
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cerrar</button>
+              </div>
+          </div>
+          <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+  <div class="modal fade" id="modal-presupuesto">
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">Lista de Presupuesto</h4>
+              </div>
+              <div class="modal-body">
+                  <table id="tabla-presupuesto" class="table table-bordered table-striped table-hover">
+                      <thead>
+                          <tr>
+                              <th>#</th>
+                              <th>Nombres Cliente</th>
+                              <th>Fecha</th>
+                              <th>Total</th>
+                              <th>Total Facturado</th>
+                              <th>Nombre proyecto</th>
+                              <th>Estado proyecto</th>
+                              <th>Opciones</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <?php if (!empty($presupuestos)) : ?>
+                              <?php foreach ($presupuestos as $row) : ?>
+                                  <tr>
+                                      <td><?php echo $row['id_ventas']; ?></td>
+                                      <td><?php echo $row['nombres']; ?></td>
+                                      <td><?php echo $row['fecha']; ?></td>
+                                      <td><?php echo $row['importeTotal']; ?></td>
+                                      <td><?php echo $row['facturaTotal']; ?></td>
+                                      <td><?php echo $row['proyecto']; ?></td>
+                                      <td><?php echo $row['fase_proyecto']; ?></td>
+                                      <?php $presupuesto = $row['id_ventas'] . "*" . $row['proyecto'] . "*" . $row['fecha']; ?>
+                                      <td>
+                                          <button type="button" class="btn btn-success btn-check-presupuesto" value="<?php echo $presupuesto ?>"><span class="fa fa-check"></span></button>
                                       </td>
                                   </tr>
                               <?php endforeach; ?>

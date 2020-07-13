@@ -4,8 +4,9 @@ class Ventas_model extends CI_Model
     //Totas estas funciones son de Ventas
     public function getVentas()
     {
-        $this->db->select('v.*, c.nombres');
+        $this->db->select('v.*, c.nombres, p.proyecto as nombreProyecto');
         $this->db->from('ventas v');
+        $this->db->join('ventas p','v.id_presupuesto = p.id_ventas');
         $this->db->join('clientes c', 'v.id_clientes = c.id_clientes');
         $this->db->join('tipo_comprobante tc','v.id_tipo_comprobante = tc.id_tipo_comprobante');
         $this->db->where('v.id_tipo_comprobante !=','3');
@@ -13,7 +14,7 @@ class Ventas_model extends CI_Model
         $resultado = $this->db->get()->result_array();
 
         if (count($resultado) > 0) {
-            return $resultado->result_array();
+            return $resultado;
         } else {
             return false;
         }
@@ -49,6 +50,17 @@ class Ventas_model extends CI_Model
     {
         $this->db->select('v.*, c.nombres, c.direccion, c.telefono, c.num_documento as documento, c.nombres as nombre_cliente, e.nombre as nombre_empleado, e.apellidos as apellidos_empleado');
         $this->db->from('ventas v');
+        $this->db->join('clientes c', 'v.id_clientes = c.id_clientes');
+        $this->db->join('empleados e', 'v.id_empleados = e.id_empleados');
+        $this->db->where("v.id_ventas", $id);
+        $resultado = $this->db->get();
+        return $resultado->row();
+    }
+    public function getProyecto($id)
+    {
+        $this->db->select('v.*,p.proyecto as nombreProyecto, c.nombres, c.direccion, c.telefono, c.num_documento as documento, c.nombres as nombre_cliente, e.nombre as nombre_empleado, e.apellidos as apellidos_empleado');
+        $this->db->from('ventas v');
+        $this->db->join('ventas p','v.id_presupuesto = p.id_ventas');
         $this->db->join('clientes c', 'v.id_clientes = c.id_clientes');
         $this->db->join('empleados e', 'v.id_empleados = e.id_empleados');
         $this->db->where("v.id_ventas", $id);
