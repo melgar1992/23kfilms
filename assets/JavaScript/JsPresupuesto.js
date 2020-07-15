@@ -180,6 +180,8 @@ $(document).ready(function() {
         e.preventDefault();
         id_cliente = $.trim($('#idcliente').val());
         fecha = $.trim($('#fecha').val());
+        cuota_inicial = $.trim($('#cuota_inicial').val());
+        derecho_exhibicion = $.trim($('#derecho_exhibicion').val());
         proyecto = $.trim($('#proyecto').val());
         fase_proyecto = $.trim($('#fase_proyecto').val());
         id_empleado = $.trim($('#idempleado').val());
@@ -225,6 +227,8 @@ $(document).ready(function() {
             data: {
                 id_cliente: id_cliente,
                 fecha: fecha,
+                cuota_inicial: cuota_inicial,
+                derecho_exhibicion: derecho_exhibicion,
                 proyecto: proyecto,
                 fase_proyecto: fase_proyecto,
                 id_empleado: id_empleado,
@@ -261,6 +265,8 @@ $(document).ready(function() {
         id_ventas = $.trim($('#id_ventas').val());
         id_cliente = $.trim($('#idcliente').val());
         fecha = $.trim($('#fecha').val());
+        derecho_exhibicion = $.trim($('#derecho_exhibicion').val());
+        cuota_inical = $.trim($('#cuota_inicial').val());
         proyecto = $.trim($('#proyecto').val());
         fase_proyecto = $.trim($('#fase_proyecto').val());
         id_empleado = $.trim($('#idempleado').val());
@@ -307,6 +313,8 @@ $(document).ready(function() {
                 id_ventas: id_ventas,
                 id_cliente: id_cliente,
                 fecha: fecha,
+                derecho_exhibicion: derecho_exhibicion,
+                cuota_inicial: cuota_inicial,
                 proyecto: proyecto,
                 fase_proyecto: fase_proyecto,
                 id_empleado: id_empleado,

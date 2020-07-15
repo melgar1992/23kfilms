@@ -57,6 +57,14 @@
                                               <label for="">Fecha:</label>
                                               <input type="date" value="<?php echo date("Y-m-d") ?>" class="form-control" id="fecha" name="fecha" required>
                                           </div>
+                                          <div class="col-md-3">
+                                              <label for="cuota_inical">Cuota Inicial</label>
+                                              <input type="text" name="cuota_inicial" id="cuota_inicial" class="form-control" required>
+                                          </div>
+                                          <div class="col-md-3">
+                                              <label for="derecho_exhibicion">Derecho de Exhibicion</label>
+                                              <input type="text" name="derecho_exhibicion" id="derecho_exhibicion" class="form-control" required>
+                                          </div>
                                       </div>
                                       <div class="form-group">
                                           <div class="col-md-3">

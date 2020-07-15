@@ -56,6 +56,14 @@
                                               <label for="">Fecha:</label>
                                               <input type="date" value="<?php echo $venta->fecha; ?>" class="form-control" id="fecha" name="fecha" required>
                                           </div>
+                                          <div class="col-md-3">
+                                              <label for="cuota_inicial">Cuota Inicial:</label>
+                                              <input type="number" value="<?php echo $venta->cuota_inicial; ?>" class="form-control" id="cuota_inicial" name="cuota_inicial" required>
+                                          </div>
+                                          <div class="col-md-3">
+                                              <label for="derecho_exhibicion">Derecho de exhibicion:</label>
+                                              <input type="text" value="<?php echo $venta->derecho_exhibicion; ?>" class="form-control" id="derecho_exhibicion" name="derecho_exhibicion" required>
+                                          </div>
                                       </div>
                                       <div class="form-group">
                                           <div class="col-md-3">
