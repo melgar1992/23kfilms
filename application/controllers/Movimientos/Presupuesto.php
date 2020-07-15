@@ -37,8 +37,8 @@ class Presupuesto extends BaseController
         //Valores de ventas
         $id_clientes = $this->input->post('id_cliente');
         $fecha = $this->input->post('fecha');
-        $cuota_inicial=$this->input->post('cuota_inicial');
-        $derecho_exhibicion=$this->input->post('derecho_exhibicion');
+        $cuota_inicial = $this->input->post('cuota_inicial');
+        $derecho_exhibicion = $this->input->post('derecho_exhibicion');
         $proyecto = $this->input->post('proyecto');
         $fase_proyecto = $this->input->post('fase_proyecto');
         $id_empleados = $this->input->post('id_empleado');
@@ -81,8 +81,8 @@ class Presupuesto extends BaseController
                         'facturaTotal' => $facturaTotal,
                         'proyecto' => $proyecto,
                         'fecha' => $fecha,
-                        'cuota_inicial'=>$cuota_inicial,
-                        'derecho_exhibicion'=>$derecho_exhibicion,
+                        'cuota_inicial' => $cuota_inicial,
+                        'derecho_exhibicion' => $derecho_exhibicion,
                         'iva' => $iva,
                         'fase_proyecto' => $fase_proyecto,
                         'estado' => '1',
@@ -135,7 +135,7 @@ class Presupuesto extends BaseController
         $id_clientes = $this->input->post('id_cliente');
         $fecha = $this->input->post('fecha');
         $cuota_inicial = $this->input->post('cuota_inicial');
-        $derecho_exhibicion=$this->input->post('derecho_exhibicion');
+        $derecho_exhibicion = $this->input->post('derecho_exhibicion');
         $proyecto = $this->input->post('proyecto');
         $fase_proyecto = $this->input->post('fase_proyecto');
         $id_empleados = $this->input->post('id_empleado');
@@ -178,8 +178,8 @@ class Presupuesto extends BaseController
                         'facturaTotal' => $facturaTotal,
                         'proyecto' => $proyecto,
                         'fecha' => $fecha,
-                        'derecho_exhibicion'=>$derecho_exhibicion,
-                        'cuota_inicial'=>$cuota_inicial,
+                        'derecho_exhibicion' => $derecho_exhibicion,
+                        'cuota_inicial' => $cuota_inicial,
                         'iva' => $iva,
                         'fase_proyecto' => $fase_proyecto,
                         'estado' => '1',

@@ -266,7 +266,7 @@ $(document).ready(function() {
         id_cliente = $.trim($('#idcliente').val());
         fecha = $.trim($('#fecha').val());
         derecho_exhibicion = $.trim($('#derecho_exhibicion').val());
-        cuota_inical = $.trim($('#cuota_inicial').val());
+        cuota_inicial = $.trim($('#cuota_inicial').val());
         proyecto = $.trim($('#proyecto').val());
         fase_proyecto = $.trim($('#fase_proyecto').val());
         id_empleado = $.trim($('#idempleado').val());
