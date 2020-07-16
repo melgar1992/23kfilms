@@ -27,14 +27,16 @@
 			<?php for ($i = 0; $i < count($cant_categoria_detalle); $i++) { ?>
 				<?php $nombreCategoria = $cant_categoria_detalle[$i]['nombre']; ?>
 				<li><?php echo $nombreCategoria ?>
-					<?php if (!empty($detalle_ventas)) : ?>
-						<?php foreach ($detalle_ventas as $row) : ?>
-				<li><?php echo $row['nombre']; ?></li>
-			<?php endforeach; ?>
-		<?php endif; ?>
-		</li>
+					<ul>
+						<?php if (!empty($detalle_ventas)) : ?>
+							<?php foreach ($detalle_ventas as $row) : ?>
+								<li><?php echo $row['nombre']; ?></li>
+							<?php endforeach; ?>
+						<?php endif; ?>
+					</ul>
+				</li>
 
-	<?php } ?>
+			<?php } ?>
 		</ul>
 	</div>
 </div>
