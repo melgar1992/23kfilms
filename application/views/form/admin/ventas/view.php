@@ -92,11 +92,11 @@
 	</div>
 </div>
 <div>
-	<h5>Costo total del proyecto sin facturado: <b class="text-right"><?php echo $venta->importeTotal ?> $</b></h5><br>
+	<h5>Costo del proyecto: <b class="text-right"><?php echo $venta->importeTotal ?> $</b></h5><br>
 	<b><?php echo convertir(number_format($venta->importeTotal)) ?> dolares americanos</b>
 </div>
 <div>
-	<h5>Costo total del proyecto facturado: <b class="text-right"><?php echo $venta->facturaTotal ?> $</b></h5><br>
+	<h5>Costo del proyecto facturado: <b class="text-right"><?php echo $venta->facturaTotal ?> $</b></h5><br>
 	<b><?php echo convertir(number_format($venta->facturaTotal)) ?> dolares americanos</b> <br>
 </div>
 <div class="row">
