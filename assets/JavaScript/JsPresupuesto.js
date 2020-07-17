@@ -170,6 +170,21 @@ $(document).ready(function() {
             }
         })
     });
+    $(document).on('click', '.btn-view-presupuesto', function() {
+        valor_id = $(this).val();
+        $.ajax({
+            url: base_url + 'Movimientos/Presupuesto/vista_factura',
+            type: 'POST',
+            dataType: 'html',
+            data: {
+                id: valor_id
+            },
+            success: function(data) {
+
+                $('#modal-default .modal-body').html(data);
+            }
+        });
+    });
 
     $(document).on("change", ".costo, .cantidad, .dias", function() {
 
@@ -185,6 +200,7 @@ $(document).ready(function() {
         proyecto = $.trim($('#proyecto').val());
         fase_proyecto = $.trim($('#fase_proyecto').val());
         id_empleado = $.trim($('#idempleado').val());
+        honorarios = $.trim($('#honorarios').val());
         importeTotal = $.trim($('#importeTotal').val());
         iva = $.trim($('#iva').val());
         facturaTotal = $.trim($('#facturaTotal').val());
@@ -229,6 +245,7 @@ $(document).ready(function() {
                 fecha: fecha,
                 cuota_inicial: cuota_inicial,
                 derecho_exhibicion: derecho_exhibicion,
+                honorarios: honorarios,
                 proyecto: proyecto,
                 fase_proyecto: fase_proyecto,
                 id_empleado: id_empleado,
@@ -270,6 +287,7 @@ $(document).ready(function() {
         proyecto = $.trim($('#proyecto').val());
         fase_proyecto = $.trim($('#fase_proyecto').val());
         id_empleado = $.trim($('#idempleado').val());
+        honorarios = $.trim($('#honorarios').val());
         importeTotal = $.trim($('#importeTotal').val());
         iva = $.trim($('#iva').val());
         facturaTotal = $.trim($('#facturaTotal').val());
@@ -315,6 +333,7 @@ $(document).ready(function() {
                 fecha: fecha,
                 derecho_exhibicion: derecho_exhibicion,
                 cuota_inicial: cuota_inicial,
+                honorarios: honorarios,
                 proyecto: proyecto,
                 fase_proyecto: fase_proyecto,
                 id_empleado: id_empleado,

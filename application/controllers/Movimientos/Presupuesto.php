@@ -42,6 +42,7 @@ class Presupuesto extends BaseController
         $proyecto = $this->input->post('proyecto');
         $fase_proyecto = $this->input->post('fase_proyecto');
         $id_empleados = $this->input->post('id_empleado');
+        $honorarios = $this->input->post('honorarios');
         $importeTotal = $this->input->post('importeTotal');
         $facturaTotal = $this->input->post('facturaTotal');
         $iva = $this->input->post('iva');
@@ -63,6 +64,7 @@ class Presupuesto extends BaseController
             $this->form_validation->set_rules('derecho_exhibicion', 'Derechos de exhibicion del proyecto', 'required');
             $this->form_validation->set_rules('id_cliente', 'idcliente', 'required');
             $this->form_validation->set_rules('id_empleado', 'idempleado', 'required');
+            $this->form_validation->set_rules('honorarios', 'Honorarios de la productora 23K Films', 'required');
             $this->form_validation->set_rules('proyecto', 'proyecto', 'required');
             $this->form_validation->set_rules('fase_proyecto', 'fase_proyecto', 'required');
 
@@ -82,6 +84,7 @@ class Presupuesto extends BaseController
                         'proyecto' => $proyecto,
                         'fecha' => $fecha,
                         'cuota_inicial' => $cuota_inicial,
+                        'honorarios' => $honorarios,
                         'derecho_exhibicion' => $derecho_exhibicion,
                         'iva' => $iva,
                         'fase_proyecto' => $fase_proyecto,
@@ -139,6 +142,7 @@ class Presupuesto extends BaseController
         $proyecto = $this->input->post('proyecto');
         $fase_proyecto = $this->input->post('fase_proyecto');
         $id_empleados = $this->input->post('id_empleado');
+        $honorarios = $this->input->post('honorarios');
         $importeTotal = $this->input->post('importeTotal');
         $facturaTotal = $this->input->post('facturaTotal');
         $iva = $this->input->post('iva');
@@ -160,6 +164,7 @@ class Presupuesto extends BaseController
             $this->form_validation->set_rules('derecho_exhibicion', 'Derechos de exhibicion del proyecto', 'required');
             $this->form_validation->set_rules('id_cliente', 'idcliente', 'required');
             $this->form_validation->set_rules('id_empleado', 'idempleado', 'required');
+            $this->form_validation->set_rules('honorarios', 'Honorarios de la productora 23K Films', 'required');
             $this->form_validation->set_rules('proyecto', 'proyecto', 'required');
             $this->form_validation->set_rules('fase_proyecto', 'fase_proyecto', 'required');
 
@@ -180,6 +185,7 @@ class Presupuesto extends BaseController
                         'fecha' => $fecha,
                         'derecho_exhibicion' => $derecho_exhibicion,
                         'cuota_inicial' => $cuota_inicial,
+                        'honorarios' => $honorarios,
                         'iva' => $iva,
                         'fase_proyecto' => $fase_proyecto,
                         'estado' => '1',
@@ -253,5 +259,18 @@ class Presupuesto extends BaseController
         $this->Ventas_model->actualizarVentas($id_ventas, $data);
         $this->Ventas_model->borrar_detalle_completo($id_ventas);
         echo "Movimientos/Presupuesto";
+    }
+    public function vista_factura()
+    {
+        $id_venta = $this->input->post('id');
+      
+        $data ['Configuracion'] = $this->Empresa_model->getEmpresa();
+
+        $data['presupuesto'] = $this->Ventas_model->getVenta($id_venta);
+        $data['detalle_ventas'] = $this->Ventas_model->getDetalles($id_venta);
+        $data['cant_categoria_detalle'] = $this->Ventas_model->getCategoriaServicioDetalleVenta($id_venta);
+       
+       
+        $this->load->view('form/admin/presupuesto/presupuestoConFactura', $data);
     }
 }

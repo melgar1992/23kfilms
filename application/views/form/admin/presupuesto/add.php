@@ -57,9 +57,9 @@
                                               <label for="">Fecha:</label>
                                               <input type="date" value="<?php echo date("Y-m-d") ?>" class="form-control" id="fecha" name="fecha" required>
                                           </div>
-                                          <div class="col-md-3">
+                                          <div class="col-md-2">
                                               <label for="cuota_inical">Cuota Inicial</label>
-                                              <input type="text" name="cuota_inicial" id="cuota_inicial" class="form-control" required>
+                                              <input type="number" min="0" max="100" step="0.1" placeholder="%" name="cuota_inicial" id="cuota_inicial" class="form-control" required>
                                           </div>
                                           <div class="col-md-3">
                                               <label for="derecho_exhibicion">Derecho de Exhibicion</label>
@@ -91,6 +91,10 @@
                                                       <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-empleados"><span class="fa fa-search"></span> Buscar</button>
                                                   </span>
                                               </div><!-- /input-group -->
+                                          </div>
+                                          <div class="col-md-2">
+                                              <label for="cuota_inical">Honorarios 23K Films</label>
+                                              <input type="number" min="0" max="60" step="0.1" placeholder="%" name="honorarios" id="honorarios" class="form-control" required>
                                           </div>
 
                                       </div>

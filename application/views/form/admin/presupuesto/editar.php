@@ -58,7 +58,7 @@
                                           </div>
                                           <div class="col-md-3">
                                               <label for="cuota_inicial">Cuota Inicial:</label>
-                                              <input type="number" value="<?php echo $venta->cuota_inicial; ?>" class="form-control" id="cuota_inicial" name="cuota_inicial" required>
+                                              <input type="number" min="0" max="100" placeholder="%" step="0.1" value="<?php echo $venta->cuota_inicial; ?>" class="form-control" id="cuota_inicial" name="cuota_inicial" required>
                                           </div>
                                           <div class="col-md-3">
                                               <label for="derecho_exhibicion">Derecho de exhibicion:</label>
@@ -90,6 +90,10 @@
                                                       <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-empleados"><span class="fa fa-search"></span> Buscar</button>
                                                   </span>
                                               </div><!-- /input-group -->
+                                          </div>
+                                          <div class="col-md-3">
+                                              <label for="honorarios">Honorarios 23K Films:</label>
+                                              <input type="number" min="0" max="60" placeholder="%" step="0.1" value="<?php echo $venta->honorarios; ?>" class="form-control" id="honorarios" name="honorarios" required>
                                           </div>
 
                                       </div>
