@@ -71,9 +71,9 @@
                                                       <td><?php echo $row['proyecto']; ?></td>
                                                       <td><?php echo $row['fase_proyecto']; ?></td>
                                                       <td>
-                                                          <button type="button" class="btn btn-info btn-view-ventas" data-toggle="modal" data-target="#modal-default" value="<?php echo $row['id_ventas'] ?>"><span class="fa fa-search"></span></button>
-                                                          <a href="<?php echo base_url() ?>Movimientos/Ventas/editar/<?php echo $row['id_ventas']; ?>" class="btn btn-warning"><span class="fa fa-pencil"></span></a>
-                                                          <button type="button" value="<?php echo  $row['id_ventas']; ?>" class="btn btn-danger btn-borrar"><span class="fa fa-remove"></span></button>
+                                                          <button  title="Vista del proyecto" type="button" class="btn btn-info btn-view-ventas" data-toggle="modal" data-target="#modal-default" value="<?php echo $row['id_ventas'] ?>"><span class="fa fa-file-text-o"></span></button>
+                                                          <a title="Editar" href="<?php echo base_url() ?>Movimientos/Ventas/editar/<?php echo $row['id_ventas']; ?>" class="btn btn-warning"><span class="fa fa-pencil"></span></a>
+                                                          <button title="Borrar" type="button" value="<?php echo  $row['id_ventas']; ?>" class="btn btn-danger btn-borrar"><span class="fa fa-remove"></span></button>
                                                       </td>
                                                   </tr>
                                               <?php endforeach; ?>
@@ -95,7 +95,7 @@
 
   <div class="modal fade" id="modal-default">
 
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-lg">
 
           <div class="modal-content">
 

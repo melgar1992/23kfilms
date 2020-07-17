@@ -287,22 +287,6 @@ class Ventas extends BaseController
             $this->Ventas_model->guardar_detalle($data);
         }
     }
-    protected function borrar_detalle($idVenta)
-    {
-        $detalle_actual = $this->Ventas_model->getDetalle($idVenta);
-        foreach ($detalle_actual as $detalle) {
-            $this->reponerProducto($detalle->id_productos, $detalle->cantidad);
-            $this->Ventas_model->borrar_detalle($detalle->id_detalle_ventas);
-        }
-    }
-    protected function reponerProducto($idproducto, $cantidad)
-    {
-        $productoActual = $this->Productos_model->getProducto($idproducto);
-        $data = array(
-            'stock' => $productoActual->stock + $cantidad,
-        );
-        $this->Productos_model->actualizar($idproducto, $data);
-    }
     protected function actualizarProducto($idproducto, $cantidad)
     {
         $productoActual = $this->Productos_model->getProducto($idproducto);
@@ -319,6 +303,8 @@ class Ventas extends BaseController
             "detalles" => $this->Ventas_model->getDetalle($id_venta),
             'Configuracion' => $this->Empresa_model->getEmpresa(),
             'encargado' => $this->Ventas_model->getEncargado($id_venta),
+            "detalle_ventas" => $this->Ventas_model->getDetalles($id_venta),
+            'cant_categoria_detalle' => $this->Ventas_model->getCategoriaServicioDetalleVenta($id_venta),
         );
         $this->load->view('form/admin/ventas/view', $data);
     }

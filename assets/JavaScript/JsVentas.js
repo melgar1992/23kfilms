@@ -166,16 +166,15 @@ $(document).ready(function () {
 		restarTabla(id_tabla_eliminar);
 		$("." + id_tabla_eliminar).remove();
 	});
-
-	//Terminan las funciones de tablas de categorias
+	
 	$(document).on("click", ".btn-remove-producto", function () {
 
 		id_tabla = $(this).closest('tr').closest('tbody').closest('table').attr('id');
 		$(this).closest("tr").remove();
 		sumarTabla(id_tabla);
 	});
-
-	$(document).on('click', '.btn-view-venta', function () {
+//Terminan las funciones de tablas de categorias
+	$(document).on('click', '.btn-view-ventas', function () {
 		valor_id = $(this).val();
 		$.ajax({
 			url: base_url + 'Movimientos/Ventas/vista',
