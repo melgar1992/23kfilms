@@ -42,7 +42,7 @@
 
                                       </div>
                                       <div class="form-group">
-                                          <div class="col-md-3">
+                                          <div class="col-md-3 col-lg-3">
                                               <label for="">Cliente:</label>
                                               <div class="input-group">
                                                   <input type="hidden" name="idcliente" id="idcliente">
@@ -52,26 +52,32 @@
                                                   </span>
                                               </div><!-- /input-group -->
                                           </div>
-
-                                          <div class="col-md-3">
+                                          <div class="col-md-3 col-lg-3">
+                                              <label for="">Empleado a cargo:</label>
+                                              <div class="input-group">
+                                                  <input type="hidden" name="idempleado" id="idempleado">
+                                                  <input type="text" class="form-control" readonly="readonly" required id="empleado">
+                                                  <span class="input-group-btn">
+                                                      <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-empleados"><span class="fa fa-search"></span> Buscar</button>
+                                                  </span>
+                                              </div><!-- /input-group -->
+                                          </div>
+                                          <div class="col-md-3 col-lg-3">
                                               <label for="">Fecha:</label>
                                               <input type="date" value="<?php echo date("Y-m-d") ?>" class="form-control" id="fecha" name="fecha" required>
                                           </div>
-                                          <div class="col-md-2">
+                                          <div class="col-md-3 col-lg-3">
                                               <label for="cuota_inical">Cuota Inicial</label>
                                               <input type="number" min="0" max="100" step="0.1" placeholder="%" name="cuota_inicial" id="cuota_inicial" class="form-control" required>
                                           </div>
-                                          <div class="col-md-3">
-                                              <label for="derecho_exhibicion">Derecho de Exhibicion</label>
-                                              <input type="text" name="derecho_exhibicion" id="derecho_exhibicion" class="form-control" required>
-                                          </div>
+
                                       </div>
                                       <div class="form-group">
-                                          <div class="col-md-3">
+                                          <div class="col-md-3 col-lg-3">
                                               <label for="proyecto">Nombre proyecto</label>
                                               <input type="text" name="proyecto" id="proyecto" class="form-control" required>
                                           </div>
-                                          <div class="col-md-3">
+                                          <div class="col-md-3 col-lg-3">
                                               <label for="fase_proyecto" class="">Fase de proyecto</label>
                                               <select name="fase_proyecto" id="fase_proyecto" requiered='requiered' class="form-control col-md-7 col-xs-12">
                                                   <option value=""></option>
@@ -82,21 +88,22 @@
 
                                               </select>
                                           </div>
-                                          <div class="col-md-3">
-                                              <label for="">Empleado a cargo:</label>
-                                              <div class="input-group">
-                                                  <input type="hidden" name="idempleado" id="idempleado">
-                                                  <input type="text" class="form-control" readonly="readonly" required id="empleado">
-                                                  <span class="input-group-btn">
-                                                      <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-empleados"><span class="fa fa-search"></span> Buscar</button>
-                                                  </span>
-                                              </div><!-- /input-group -->
-                                          </div>
-                                          <div class="col-md-2">
-                                              <label for="cuota_inical">Honorarios 23K Films</label>
-                                              <input type="number" min="0" max="60" step="0.1" placeholder="%" name="honorarios" id="honorarios" class="form-control" required>
+                                          <div class="col-md-3 col-lg-3">
+                                              <label for="derecho_exhibicion">Derecho de Exhibicion</label>
+                                              <input type="text" name="derecho_exhibicion" id="derecho_exhibicion" class="form-control" required>
                                           </div>
 
+
+                                      </div>
+                                      <div class="form-group">
+                                          <div class="col-md-3 col-lg-3">
+                                              <label for="honorarios">Honorarios 23K Films</label>
+                                              <input type="number" min="0" max="60" step="0.1" placeholder="%" name="porcentaje_honorarios" id="porcentaje_honorarios" class="form-control" required>
+                                          </div>
+                                          <div class="col-md-3 col-lg-3">
+                                              <label for="honoracios_agencia">Honorarios Agencia</label>
+                                              <input type="number" min="0" max="60" step="0.1" placeholder="%" name="porcentaje_honorarios_agencia" id="porcentaje_honorarios_agencia" class="form-control" required>
+                                          </div>
                                       </div>
 
                                       <label for="Productos" class="col-md-12">Buscar y agregar una categoria de servicio para comenzar el proyecto</label>
@@ -112,9 +119,39 @@
                                       <div id="tablas-categorias">
 
 
-                                      </div>                                                           
+                                      </div>
 
                                       <div class="form-group">
+                                          <div class="col-md-3">
+                                              <div class="input-group has-feedback">
+                                                  <span class="input-group-addon">Costo produccion:</span>
+                                                  <input type="text" class="form-control" placeholder="" id="costo_produccion" value="0.00" name="costo_produccion" readonly="readonly">
+                                                  <span class="fa fa-dollar form-control-feedback right" aria-hidden="true"></span>
+                                              </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                              <div class="input-group has-feedback">
+                                                  <span class="input-group-addon">Honorarios:</span>
+                                                  <input type="text" class="form-control" placeholder="" id="honorarios" value="0.00" name="honorarios" readonly="readonly">
+                                                  <span class="fa fa-dollar form-control-feedback right" aria-hidden="true"></span>
+                                              </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                              <div class="input-group has-feedback">
+                                                  <span class="input-group-addon">Sub total:</span>
+                                                  <input type="text" class="form-control" placeholder="" id="sub_total" value="0.00" name="sub_total" readonly="readonly">
+                                                  <span class="fa fa-dollar form-control-feedback right" aria-hidden="true"></span>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <div class="col-md-3">
+                                              <div class="input-group has-feedback">
+                                                  <span class="input-group-addon">Honorarios Agencia:</span>
+                                                  <input type="text" class="form-control" placeholder="" id="honorarios_agencia" value="0.00" name="honorarios_agencia" readonly="readonly">
+                                                  <span class="fa fa-dollar form-control-feedback right" aria-hidden="true"></span>
+                                              </div>
+                                          </div>
                                           <div class="col-md-3">
                                               <div class="input-group has-feedback">
                                                   <span class="input-group-addon">Total:</span>
@@ -252,7 +289,7 @@
       <!-- /.modal-dialog -->
   </div>
   <!-- /.modal -->
-                              
+
 
   <div class="modal fade" id="modal-empleados">
       <div class="modal-dialog modal-lg">

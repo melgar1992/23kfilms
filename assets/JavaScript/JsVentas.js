@@ -124,6 +124,10 @@ $(document).ready(function () {
 					success: function (detallePresupuesto) {
 						$('#tablas-categorias').empty();
 						limparTotales();
+						porcentaje_honorarios = Number(detallePresupuesto['presupuesto'].porcentaje_honorarios);
+						porcentaje_honorarios_agencia = Number(detallePresupuesto['presupuesto'].porcentaje_honorarios_agencia);
+						$("input[name=porcentaje_honorarios]").val(porcentaje_honorarios.toFixed(2));
+						$("input[name=porcentaje_honorarios_agencia]").val(porcentaje_honorarios_agencia.toFixed(2));
 						agregarTablaCategoriaPresupuesto(detallePresupuesto);
 						$("#modal-presupuesto").modal("hide");
 					}
@@ -166,14 +170,14 @@ $(document).ready(function () {
 		restarTabla(id_tabla_eliminar);
 		$("." + id_tabla_eliminar).remove();
 	});
-	
+
 	$(document).on("click", ".btn-remove-producto", function () {
 
 		id_tabla = $(this).closest('tr').closest('tbody').closest('table').attr('id');
 		$(this).closest("tr").remove();
 		sumarTabla(id_tabla);
 	});
-//Terminan las funciones de tablas de categorias
+	//Terminan las funciones de tablas de categorias
 	$(document).on('click', '.btn-view-ventas', function () {
 		valor_id = $(this).val();
 		$.ajax({
@@ -230,6 +234,9 @@ $(document).ready(function () {
 		id_tabla = $(this).closest('tr').closest('tbody').closest('table').attr('id');
 		sumarTabla(id_tabla);
 	});
+	$(document).on('change', '#porcentaje_honorarios, #porcentaje_honorarios_agencia', function () {
+		calculoEstadoResultado();
+	});
 	$(document).on('submit', '#guardar_proyecto', function (e) {
 		e.preventDefault();
 		id_cliente = $.trim($('#idcliente').val());
@@ -238,7 +245,14 @@ $(document).ready(function () {
 		fecha = $.trim($('#fecha').val());
 		proyecto = $.trim($('#proyecto').val());
 		fase_proyecto = $.trim($('#fase_proyecto').val());
+		derecho_exhibicion = $.trim($('#derecho_exhibicion').val());
 		id_empleado = $.trim($('#idempleado').val());
+		porcentaje_honorarios = $.trim($('#porcentaje_honorarios').val());
+		porcentaje_honorarios_agencia = $.trim($('#porcentaje_honorarios_agencia').val());
+		costo_produccion = $.trim($('#costo_produccion').val());
+		honorarios = $.trim($('#honorarios').val());
+		sub_total = $.trim($('#sub_total').val());
+		honorarios_agencia = $.trim($('#honorarios_agencia').val());
 		importeTotal = $.trim($('#importeTotal').val());
 		iva = $.trim($('#iva').val());
 		facturaTotal = $.trim($('#facturaTotal').val());
@@ -285,7 +299,14 @@ $(document).ready(function () {
 				fecha: fecha,
 				proyecto: proyecto,
 				fase_proyecto: fase_proyecto,
+				derecho_exhibicion: derecho_exhibicion,
 				id_empleado: id_empleado,
+				porcentaje_honorarios: porcentaje_honorarios,
+				porcentaje_honorarios_agencia: porcentaje_honorarios_agencia,
+				costo_produccion: costo_produccion,
+				honorarios: honorarios,
+				sub_total: sub_total,
+				honorarios_agencia: honorarios_agencia,
 				importeTotal: importeTotal,
 				iva: iva,
 				facturaTotal: facturaTotal,
@@ -323,7 +344,14 @@ $(document).ready(function () {
 		fecha = $.trim($('#fecha').val());
 		proyecto = $.trim($('#proyecto').val());
 		fase_proyecto = $.trim($('#fase_proyecto').val());
+		derecho_exhibicion = $.trim($('#derecho_exhibicion').val());
 		id_empleado = $.trim($('#idempleado').val());
+		porcentaje_honorarios = $.trim($('#porcentaje_honorarios').val());
+		porcentaje_honorarios_agencia = $.trim($('#porcentaje_honorarios_agencia').val());
+		costo_produccion = $.trim($('#costo_produccion').val());
+		honorarios = $.trim($('#honorarios').val());
+		sub_total = $.trim($('#sub_total').val());
+		honorarios_agencia = $.trim($('#honorarios_agencia').val());
 		importeTotal = $.trim($('#importeTotal').val());
 		iva = $.trim($('#iva').val());
 		facturaTotal = $.trim($('#facturaTotal').val());
@@ -371,7 +399,14 @@ $(document).ready(function () {
 				fecha: fecha,
 				proyecto: proyecto,
 				fase_proyecto: fase_proyecto,
+				derecho_exhibicion: derecho_exhibicion,
 				id_empleado: id_empleado,
+				porcentaje_honorarios: porcentaje_honorarios,
+				porcentaje_honorarios_agencia: porcentaje_honorarios_agencia,
+				costo_produccion: costo_produccion,
+				honorarios: honorarios,
+				sub_total: sub_total,
+				honorarios_agencia: honorarios_agencia,
 				importeTotal: importeTotal,
 				iva: iva,
 				facturaTotal: facturaTotal,
@@ -595,10 +630,10 @@ function sumarTabla(id_tabla) {
 		$(this).find("td:eq(4)").children('input').val(total);
 		$(this).find("td:eq(5)").children('input').val(facturado);
 	});
-	totalAnterio = Number($('#' + id_tabla + ' tfoot tr th:eq(1)').children('p').text());
+	totalAnterio = Number($('#' + id_tabla + ' tfoot tr th:eq(2)').children('p').text());
 	$('#' + id_tabla + ' tfoot tr th:eq(1)').children('p').text(sumaTotal.toFixed(2));
 	$('#' + id_tabla + ' tfoot tr th:eq(2)').children('p').text(sumaFacturado.toFixed(2));
-	difTotalTabla = sumaTotal - totalAnterio;
+	difTotalTabla = sumaFacturado - totalAnterio;
 	sumarTotales(difTotalTabla);
 
 }
@@ -620,20 +655,36 @@ function restarTabla(id_tabla) {
 	totalAnterio = Number($('#' + id_tabla + ' tfoot tr th:eq(1)').children('p').text());
 	$('#' + id_tabla + ' tfoot tr th:eq(1)').children('p').text(sumaTotal.toFixed(2));
 	$('#' + id_tabla + ' tfoot tr th:eq(2)').children('p').text(sumaFacturado.toFixed(2));
-	totalRestar = sumaTotal * -1;
+	totalRestar = sumaFacturado * -1;
 	sumarTotales(totalRestar);
 }
 
 function sumarTotales(difTotalTabla) {
 
-	total = $("input[name=importeTotal]").val();
-	total = Number(total) + Number(difTotalTabla);
+	costo_produccion = $("input[name=costo_produccion]").val();
+	costo_produccion = Number(costo_produccion) + Number(difTotalTabla);
+	$("input[name=costo_produccion]").val(costo_produccion.toFixed(2));
+	calculoEstadoResultado();
+
+}
+
+function calculoEstadoResultado() {
+
+	costo_produccion = Number($("input[name=costo_produccion]").val());
+	porcentaje_comision = Number($("input[name=porcentaje_honorarios]").val());
+	porcentaje_agencia = Number($("input[name=porcentaje_honorarios_agencia]").val());
+	honorarios = Number(costo_produccion) * Number((porcentaje_comision / 100));
+	sub_total = Number(costo_produccion) + Number(honorarios);
+	honorarios_agencia = sub_total * (porcentaje_agencia / 100);
+	total = Number(sub_total) + Number(honorarios_agencia);
 	totalFacturado = total * 1.16;
 	iva = total * 0.16;
+	$("input[name=honorarios]").val(honorarios.toFixed(2));
+	$("input[name=sub_total]").val(sub_total.toFixed(2));
+	$("input[name=honorarios_agencia]").val(honorarios_agencia.toFixed(2));
 	$("input[name=importeTotal]").val(total.toFixed(2));
 	$("input[name=iva]").val(iva.toFixed(2));
 	$("input[name=facturaTotal]").val(totalFacturado.toFixed(2));
-
 }
 
 function limparTotales() {

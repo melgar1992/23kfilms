@@ -99,11 +99,25 @@
                                                   <option value=""></option>
                                                   <option value="1">Facturado</option>
                                                   <option value="2">Recibo</option>
-                                  
+
                                               </select>
                                           </div>
+                                          <div class="col-md-3 col-lg-3">
+                                              <label for="derecho_exhibicion">Derecho de Exhibicion</label>
+                                              <input type="text" name="derecho_exhibicion" id="derecho_exhibicion" class="form-control" required>
+                                          </div>
                                       </div>
-
+                                      <div class="form-group">
+                                          <div class="col-md-3 col-lg-3">
+                                              <label for="honorarios">Honorarios 23K Films</label>
+                                              <input type="number" min="0" max="60" step="0.1" placeholder="%" name="porcentaje_honorarios" id="porcentaje_honorarios" class="form-control" required>
+                                          </div>
+                                          <div class="col-md-3 col-lg-3">
+                                              <label for="honoracios_agencia">Honorarios Agencia</label>
+                                              <input type="number" min="0" max="60" step="0.1" placeholder="%" name="porcentaje_honorarios_agencia" id="porcentaje_honorarios_agencia" class="form-control" required>
+                                          </div>
+                                      </div>
+                                      <hr>
                                       <label for="Productos" class="col-md-12">Buscar y agregar una categoria de servicio para comenzar el proyecto</label>
                                       <br></br>
                                       <div class="form-group">
@@ -120,6 +134,36 @@
                                       </div>
 
                                       <div class="form-group">
+                                          <div class="col-md-3">
+                                              <div class="input-group has-feedback">
+                                                  <span class="input-group-addon">Costo produccion:</span>
+                                                  <input type="text" class="form-control" placeholder="" id="costo_produccion" value="0.00" name="costo_produccion" readonly="readonly">
+                                                  <span class="fa fa-dollar form-control-feedback right" aria-hidden="true"></span>
+                                              </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                              <div class="input-group has-feedback">
+                                                  <span class="input-group-addon">Honorarios:</span>
+                                                  <input type="text" class="form-control" placeholder="" id="honorarios" value="0.00" name="honorarios" readonly="readonly">
+                                                  <span class="fa fa-dollar form-control-feedback right" aria-hidden="true"></span>
+                                              </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                              <div class="input-group has-feedback">
+                                                  <span class="input-group-addon">Sub total:</span>
+                                                  <input type="text" class="form-control" placeholder="" id="sub_total" value="0.00" name="sub_total" readonly="readonly">
+                                                  <span class="fa fa-dollar form-control-feedback right" aria-hidden="true"></span>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <div class="col-md-3">
+                                              <div class="input-group has-feedback">
+                                                  <span class="input-group-addon">Honorarios Agencia:</span>
+                                                  <input type="text" class="form-control" placeholder="" id="honorarios_agencia" value="0.00" name="honorarios_agencia" readonly="readonly">
+                                                  <span class="fa fa-dollar form-control-feedback right" aria-hidden="true"></span>
+                                              </div>
+                                          </div>
                                           <div class="col-md-3">
                                               <div class="input-group has-feedback">
                                                   <span class="input-group-addon">Total:</span>

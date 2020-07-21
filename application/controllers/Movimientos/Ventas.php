@@ -56,7 +56,14 @@ class Ventas extends BaseController
         $fecha = $this->input->post('fecha');
         $proyecto = $this->input->post('proyecto');
         $fase_proyecto = $this->input->post('fase_proyecto');
+        $derecho_exhibicion = $this->input->post('derecho_exhibicion');
         $id_empleados = $this->input->post('id_empleado');
+        $porcentaje_honorarios = $this->input->post('porcentaje_honorarios');
+        $porcentaje_honorarios_agencia = $this->input->post('porcentaje_honorarios_agencia');
+        $costo_produccion = $this->input->post('costo_produccion');
+        $honorarios = $this->input->post('honorarios');
+        $sub_total = $this->input->post('sub_total');
+        $honorarios_agencia = $this->input->post('honorarios_agencia');
         $importeTotal = $this->input->post('importeTotal');
         $facturaTotal = $this->input->post('facturaTotal');
         $iva = $this->input->post('iva');
@@ -91,8 +98,15 @@ class Ventas extends BaseController
                         'id_clientes' => $id_clientes,
                         'id_presupuesto' => $id_presupuesto,
                         'id_tipo_comprobante' => $id_tipo_comprobante,
+                        'derecho_exhibicion' => $derecho_exhibicion,
                         'id_empresa' => $id_empresa,
                         'id_empleados' => $id_empleados,
+                        'porcentaje_honorarios' => $porcentaje_honorarios,
+                        'porcentaje_honorarios_agencia' => $porcentaje_honorarios_agencia,
+                        'costo_produccion' => $costo_produccion,
+                        'honorarios' => $honorarios,
+                        'sub_total' => $sub_total,
+                        'honorarios_agencia' => $honorarios_agencia,
                         'importeTotal' => $importeTotal,
                         'facturaTotal' => $facturaTotal,
                         'proyecto' => $proyecto,
@@ -165,7 +179,14 @@ class Ventas extends BaseController
         $fecha = $this->input->post('fecha');
         $proyecto = $this->input->post('proyecto');
         $fase_proyecto = $this->input->post('fase_proyecto');
+        $derecho_exhibicion = $this->input->post('derecho_exhibicion');
         $id_empleados = $this->input->post('id_empleado');
+        $porcentaje_honorarios = $this->input->post('porcentaje_honorarios');
+        $porcentaje_honorarios_agencia = $this->input->post('porcentaje_honorarios_agencia');
+        $costo_produccion = $this->input->post('costo_produccion');
+        $honorarios = $this->input->post('honorarios');
+        $sub_total = $this->input->post('sub_total');
+        $honorarios_agencia = $this->input->post('honorarios_agencia');
         $importeTotal = $this->input->post('importeTotal');
         $facturaTotal = $this->input->post('facturaTotal');
         $iva = $this->input->post('iva');
@@ -200,8 +221,15 @@ class Ventas extends BaseController
                         'id_clientes' => $id_clientes,
                         'id_presupuesto' => $id_presupuesto,
                         'id_tipo_comprobante' => $id_tipo_comprobante,
+                        'derecho_exhibicion' => $derecho_exhibicion,
                         'id_empresa' => $id_empresa,
                         'id_empleados' => $id_empleados,
+                        'porcentaje_honorarios' => $porcentaje_honorarios,
+                        'porcentaje_honorarios_agencia' => $porcentaje_honorarios_agencia,
+                        'costo_produccion' => $costo_produccion,
+                        'honorarios' => $honorarios,
+                        'sub_total' => $sub_total,
+                        'honorarios_agencia' => $honorarios_agencia,
                         'importeTotal' => $importeTotal,
                         'facturaTotal' => $facturaTotal,
                         'proyecto' => $proyecto,
@@ -311,6 +339,7 @@ class Ventas extends BaseController
     public function obtenerDetallePresupuesto()
     {
         $id_presupuesto = $this->input->post('id_presupuesto');
+        $data['presupuesto'] = $this->Ventas_model->getVenta($id_presupuesto);
         $data['detallePresupuesto'] = $this->Ventas_model->getDetalles($id_presupuesto);
         $data['cant_categoria_detalle'] = $this->Ventas_model->getCategoriaServicioDetalleVenta($id_presupuesto);
         echo json_encode($data);

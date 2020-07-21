@@ -64,8 +64,8 @@
 											<td><?php echo $detalle_venta['observaciones'] ?></td>
 										</tr>
 									<?php
-										$total = $total + number_format($detalle_venta['total'], 2);
-										$facturado = $facturado + number_format($detalle_venta['facturado'], 2);
+										$total = $total + $detalle_venta['total'];
+										$facturado = $facturado + $detalle_venta['facturado'];
 									endif;
 									?>
 								<?php endforeach; ?>
@@ -99,17 +99,19 @@
 </div>
 <div>
 	<div>
-		<h5>Costo del proyecto: <b class="text-right"><?php echo $presupuesto->importeTotal ?> $</b></h5><br>
-		<b><?php echo convertir(number_format($presupuesto->importeTotal)) ?> dolares americanos</b>
+		<h5><b>Costo del proyecto:</b> <?php echo number_format($presupuesto->importeTotal, 2, '.', ',') ?> $</h5><br>
+		<?php $centavos = ($presupuesto->importeTotal - floor($presupuesto->importeTotal)) * 100; ?>
+		<?php echo convertir(number_format($presupuesto->importeTotal, 0, '.', '')) ?>  con <?php echo ($centavos > 0) ? convertir($centavos)  : 'cero'?> centavos.
 	</div>
 	<div>
-		<h5>Costo del proyecto facturado: <b class="text-right"><?php echo $presupuesto->facturaTotal ?> $</b></h5><br>
-		<b><?php echo convertir(number_format($presupuesto->facturaTotal)) ?> dolares americanos</b> <br>
+		<h5><b>Costo del proyecto facturado:</b> <?php echo number_format($presupuesto->facturaTotal, 2, '.', ',') ?> $</h5><br>
+		<?php $centavosf = ($presupuesto->facturaTotal - floor($presupuesto->facturaTotal)) * 100; ?>
+		<?php echo convertir(number_format($presupuesto->facturaTotal, 0, '.', '')) ?>  con <?php echo ($centavosf > 0) ? convertir($centavosf) : 'cero' ?> centavos. <br>
 	</div>
 	<div class="row">
 		<div class="col-xs-12 ">
-			<br> <b>Forma de pago:</b><?php echo $presupuesto->cuota_inicial?>% a la orden del trabajo y <?php  $presupuesto->cuota_inicial?>% restante a la entrega del trabajo. <br>
-			El restante se debera cancelar dentro de los 30 dias siguientes de haber sido aprobado el proyecto, no pudiendo pasar este periodo
+			<br> <b>Forma de pago: </b><?php echo $presupuesto->cuota_inicial ?>% a la orden del trabajo y <?php echo 100 - $presupuesto->cuota_inicial; ?>% restante a la entrega del trabajo. <br>
+			El restante se debera cancelar dentro de los 30 dias siguientes de haber sido aprobado el proyecto, no pudiendo pasar este periodo.
 		</div>
 	</div>
 

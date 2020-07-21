@@ -51,7 +51,16 @@
                                                   </span>
                                               </div><!-- /input-group -->
                                           </div>
-
+                                          <div class="col-md-3">
+                                              <label for="">Empleado a cargo:</label>
+                                              <div class="input-group">
+                                                  <input type="hidden" value="<?php echo $venta->id_empleados ?>" name="idempleado" id="idempleado">
+                                                  <input type="text" value="<?php echo $venta->nombre_empleado . ' ' . $venta->apellidos_empleado; ?>" class="form-control" readonly="readonly" required id="empleado">
+                                                  <span class="input-group-btn">
+                                                      <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-empleados"><span class="fa fa-search"></span> Buscar</button>
+                                                  </span>
+                                              </div><!-- /input-group -->
+                                          </div>
                                           <div class="col-md-3">
                                               <label for="">Fecha:</label>
                                               <input type="date" value="<?php echo $venta->fecha; ?>" class="form-control" id="fecha" name="fecha" required>
@@ -60,10 +69,7 @@
                                               <label for="cuota_inicial">Cuota Inicial:</label>
                                               <input type="number" min="0" max="100" placeholder="%" step="0.1" value="<?php echo $venta->cuota_inicial; ?>" class="form-control" id="cuota_inicial" name="cuota_inicial" required>
                                           </div>
-                                          <div class="col-md-3">
-                                              <label for="derecho_exhibicion">Derecho de exhibicion:</label>
-                                              <input type="text" value="<?php echo $venta->derecho_exhibicion; ?>" class="form-control" id="derecho_exhibicion" name="derecho_exhibicion" required>
-                                          </div>
+
                                       </div>
                                       <div class="form-group">
                                           <div class="col-md-3">
@@ -82,20 +88,20 @@
                                               </select>
                                           </div>
                                           <div class="col-md-3">
-                                              <label for="">Empleado a cargo:</label>
-                                              <div class="input-group">
-                                                  <input type="hidden" value="<?php echo $venta->id_empleados ?>" name="idempleado" id="idempleado">
-                                                  <input type="text" value="<?php echo $venta->nombre_empleado . ' ' . $venta->apellidos_empleado; ?>" class="form-control" readonly="readonly" required id="empleado">
-                                                  <span class="input-group-btn">
-                                                      <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-empleados"><span class="fa fa-search"></span> Buscar</button>
-                                                  </span>
-                                              </div><!-- /input-group -->
-                                          </div>
-                                          <div class="col-md-3">
-                                              <label for="honorarios">Honorarios 23K Films:</label>
-                                              <input type="number" min="0" max="60" placeholder="%" step="0.1" value="<?php echo $venta->honorarios; ?>" class="form-control" id="honorarios" name="honorarios" required>
+                                              <label for="derecho_exhibicion">Derecho de exhibicion:</label>
+                                              <input type="text" value="<?php echo $venta->derecho_exhibicion; ?>" class="form-control" id="derecho_exhibicion" name="derecho_exhibicion" required>
                                           </div>
 
+                                      </div>
+                                      <div class="form-group">
+                                          <div class="col-md-3">
+                                              <label for="honorarios">Honorarios 23K Films:</label>
+                                              <input type="number" min="0" max="60" placeholder="%" step="0.1" value="<?php echo $venta->porcentaje_honorarios; ?>" class="form-control" id="porcentaje_honorarios" name="porcentaje_honorarios" required>
+                                          </div>
+                                          <div class="col-md-3">
+                                              <label for="honorarios">Honorarios Agencia:</label>
+                                              <input type="number" min="0" max="60" placeholder="%" step="0.1" value="<?php echo $venta->porcentaje_honorarios_agencia; ?>" class="form-control" id="porcentaje_honorarios_agencia" name="porcentaje_honorarios_agencia" required>
+                                          </div>
                                       </div>
 
                                       <label for="Productos" class="col-md-12">Buscar y agregar una categoria de servicio para comenzar el proyecto</label>
@@ -145,15 +151,15 @@
                                                                           <td><input type='hidden' class='id_categoria' name='id_categoria[]' value='<?php echo $detalle_venta['id_categoria_servicios'] ?>'><input type='text' class='nombre form-control' name='nombre[]' value='<?php echo $detalle_venta['nombre'] ?>'></td>
                                                                           <td><input type='number' step='0.01' value='<?php echo $detalle_venta['cantidad'] ?>' class='cantidad form-control' min='0' name='cantidad[]'></td>
                                                                           <td><input type='number' step='0.01' value='<?php echo $detalle_venta['dias'] ?>' class='dias form-control' min='0' name='dias[]'></td>
-                                                                          <td><input type='number' step='0.01' value='<?php echo $detalle_venta['costo'] ?>' class='costo form-control' min='0' name='costo[]'></td>
-                                                                          <td><input type='number' step='0.01' value='<?php echo $detalle_venta['total'] ?>' readonly class='total form-control' min='0' name='total[]'></td>
-                                                                          <td><input type='number' step='0.01' value='<?php echo $detalle_venta['facturado'] ?>' readonly class='facturado form-control' min='0' name='facturado[]'></td>
+                                                                          <td><input type='number' step='0.01' value='<?php echo number_format($detalle_venta['costo'], 2,'.','') ?>' class='costo form-control' min='0' name='costo[]'></td>
+                                                                          <td><input type='number' step='0.01' value='<?php echo number_format($detalle_venta['total'], 2,'.','') ?>' readonly class='total form-control' min='0' name='total[]'></td>
+                                                                          <td><input type='number' step='0.01' value='<?php echo number_format($detalle_venta['facturado'], 2,'.','') ?>' readonly class='facturado form-control' min='0' name='facturado[]'></td>
                                                                           <td><input type='text' maxlength='100' value="<?php echo $detalle_venta['observaciones'] ?>" class='observaciones form-control' min='0' name='observaciones[]'></td>
                                                                           <td><button type='button' class='btn btn-danger btn-remove-producto' title='Eliminar fila!'><span class='fa fa-remove'></span></button></td>
                                                                       </tr>
                                                                   <?php
-                                                                        $total = $total + number_format($detalle_venta['total'], 2);
-                                                                        $facturado = $facturado + number_format($detalle_venta['facturado'], 2);
+                                                                        $total =  $total + number_format($detalle_venta['total'], 2,'.','');
+                                                                        $facturado = $facturado + number_format($detalle_venta['facturado'], 2,'.','');
                                                                     endif;
                                                                     ?>
                                                               <?php endforeach; ?>
@@ -163,10 +169,10 @@
                                                           <tr>
                                                               <th colspan="4">Totales </th>
                                                               <th>
-                                                                  <p><?php echo number_format($total, 2); ?></p>
+                                                                  <p><?php echo number_format($total, 2,'.',''); ?></p>
                                                               </th>
                                                               <th>
-                                                                  <p><?php echo number_format($facturado, 2); ?></p>
+                                                                  <p><?php echo number_format($facturado, 2,'.',''); ?></p>
                                                               </th>
                                                               <th>
                                                                   <p></p>
@@ -183,8 +189,37 @@
 
                                           <?php } ?>
                                       </div>
-
                                       <div class="form-group">
+                                          <div class="col-md-3">
+                                              <div class="input-group has-feedback">
+                                                  <span class="input-group-addon">Costo produccion:</span>
+                                                  <input type="text" class="form-control" value="<?php echo $venta->costo_produccion ?>" placeholder="" id="costo_produccion" value="0.00" name="costo_produccion" readonly="readonly">
+                                                  <span class="fa fa-dollar form-control-feedback right" aria-hidden="true"></span>
+                                              </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                              <div class="input-group has-feedback">
+                                                  <span class="input-group-addon">Honorarios:</span>
+                                                  <input type="text" class="form-control" value="<?php echo $venta->honorarios ?>" placeholder="" id="honorarios" value="0.00" name="honorarios" readonly="readonly">
+                                                  <span class="fa fa-dollar form-control-feedback right" aria-hidden="true"></span>
+                                              </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                              <div class="input-group has-feedback">
+                                                  <span class="input-group-addon">Sub total:</span>
+                                                  <input type="text" class="form-control" value="<?php echo $venta->sub_total ?>" placeholder="" id="sub_total" value="0.00" name="sub_total" readonly="readonly">
+                                                  <span class="fa fa-dollar form-control-feedback right" aria-hidden="true"></span>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <div class="col-md-3">
+                                              <div class="input-group has-feedback">
+                                                  <span class="input-group-addon">Honorarios Agencia:</span>
+                                                  <input type="text" class="form-control" value="<?php echo $venta->honorarios_agencia ?>" placeholder="" id="honorarios_agencia" value="0.00" name="honorarios_agencia" readonly="readonly">
+                                                  <span class="fa fa-dollar form-control-feedback right" aria-hidden="true"></span>
+                                              </div>
+                                          </div>
                                           <div class="col-md-3">
                                               <div class="input-group has-feedback">
                                                   <span class="input-group-addon">Total:</span>

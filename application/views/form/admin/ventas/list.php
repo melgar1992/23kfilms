@@ -41,10 +41,11 @@
                               </a>
 
                           </div>
-
+                          <br>
+                          <br>
+                          <hr>
                           <div class="row">
-                              <hr>
-                              <hr>
+
                               <div class="col-md-12">
                                   <table id="example1" class="table table-bordered btn-hover">
                                       <thead>
@@ -71,7 +72,7 @@
                                                       <td><?php echo $row['proyecto']; ?></td>
                                                       <td><?php echo $row['fase_proyecto']; ?></td>
                                                       <td>
-                                                          <button  title="Vista del proyecto" type="button" class="btn btn-info btn-view-ventas" data-toggle="modal" data-target="#modal-default" value="<?php echo $row['id_ventas'] ?>"><span class="fa fa-file-text-o"></span></button>
+                                                          <button title="Vista del proyecto" type="button" class="btn btn-info btn-view-ventas" data-toggle="modal" data-target="#modal-default" value="<?php echo $row['id_ventas'] ?>"><span class="fa fa-file-text-o"></span></button>
                                                           <a title="Editar" href="<?php echo base_url() ?>Movimientos/Ventas/editar/<?php echo $row['id_ventas']; ?>" class="btn btn-warning"><span class="fa fa-pencil"></span></a>
                                                           <button title="Borrar" type="button" value="<?php echo  $row['id_ventas']; ?>" class="btn btn-danger btn-borrar"><span class="fa fa-remove"></span></button>
                                                       </td>

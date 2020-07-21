@@ -44,10 +44,9 @@
 </div>
 <div class="row">
 	<div class="col-xs-6 ">
-		<br>----------------------------<br>
 		<br>Firma<br>
-		<br>Nombre:<?php echo $encargado->nombre ?> <br>
-		<br>Carnet de Identidad:<?php echo $encargado->num_documento ?> <br>
+		<br>Nombre: <?php echo $encargado->nombre ?> <br>
+		<br>Carnet de Identidad: <?php echo $encargado->num_documento ?> <br>
 		<br> <br>
 	</div>
 
