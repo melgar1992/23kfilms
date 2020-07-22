@@ -40,14 +40,14 @@
 
 
               <div class="form-group <?php echo !empty(form_error("nombre")) ? 'has-error' : ''; ?>">
-                <label for="nombre" class="control-label col-md-4 col-sm-3 col-xs-12">Nombres: <span class="required">*</span></label>
+                <label for="nombre" class="control-label col-md-3 col-sm-3 col-xs-12">Nombres: <span class="required">*</span></label>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <input type="text" name="nombre" value="<?php echo set_value('nombre') ?>" id=nombre required="required" class="form-control col-md-3 col-sm-3 col-xs-12" placeholder="">
                   <?php echo form_error("nombre", "<span class='help-block col-md-4 cols-xs-12 '>", "</span>"); ?>
                 </div>
               </div>
               <div class="form-group <?php echo !empty(form_error("apellidos")) ? 'has-error' : ''; ?>">
-                <label for="apellidos" class="control-label col-md-4 col-sm-3 col-xs-12">Apellidos: <span class="required">*</span></label>
+                <label for="apellidos" class="control-label col-md-3 col-sm-3 col-xs-12">Apellidos: <span class="required">*</span></label>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <input type="text" name="apellidos" value="<?php echo set_value('apellidos') ?>" id=apellidos required="required" class="form-control col-md-3 col-sm-3 col-xs-12" placeholder="">
                   <?php echo form_error("apellidos", "<span class='help-block col-md-4 col-xs-12 '>", "</span>"); ?>
@@ -55,28 +55,28 @@
               </div>
 
               <div class="form-group <?php echo !empty(form_error("telefono1")) ? 'has-error' : ''; ?>">
-                <label for="telefono1" class="control-label col-md-4 col-sm-3 col-xs-12">Telefono Opcion 1:<span class="required">*</span></label>
+                <label for="telefono1" class="control-label col-md-3 col-sm-3 col-xs-12">Telefono Opcion 1:<span class="required">*</span></label>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <input type="number" name="telefono1" value="<?php echo set_value('telefono1') ?>" id=telefono1 required="required" class="form-control col-md-3 col-sm-3 col-xs-12" placeholder="">
                   <?php echo form_error("telefono1", "<span class='help-block col-md-4 cols-xs-12 '>", "</span>"); ?>
                 </div>
               </div>
               <div class="form-group <?php echo !empty(form_error("telefono2")) ? 'has-error' : ''; ?>">
-                <label for="telefono2" class="control-label col-md-4 col-sm-3 col-xs-12">Telefono Opcion 2:</label>
+                <label for="telefono2" class="control-label col-md-3 col-sm-3 col-xs-12">Telefono Opcion 2:</label>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <input type="number" name="telefono2" value="<?php echo set_value('telefono2') ?>" id=telefono2 class="form-control col-md-3 col-sm-3 col-xs-12" placeholder="">
                   <?php echo form_error("telefono2", "<span class='help-block col-md-4 cols-xs-12 '>", "</span>"); ?>
                 </div>
               </div>
               <div class="form-group <?php echo !empty(form_error("direccion")) ? 'has-error' : ''; ?>">
-                <label for="direccion" class="control-label col-md-4 col-sm-3 col-xs-12">Direccion:<span class="required">*</span></label>
+                <label for="direccion" class="control-label col-md-3 col-sm-3 col-xs-12">Direccion:<span class="required">*</span></label>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <input type="text" name="direccion" value="<?php echo set_value('direccion') ?>" id=direccion required="required" class="form-control col-md-3 col-sm-3 col-xs-12" placeholder="">
                   <?php echo form_error("direccion", "<span class='help-block col-md-4 cols-xs-12 '>", "</span>"); ?>
                 </div>
               </div>
               <div class="form-group <?php echo !empty(form_error("tipodocumento")) ? 'has-error' : ''; ?>">
-                <label for="tipodocumento" class="control-label col-md-4 col-sm-3 col-xs-12">Tipo de Documento: <span class="required">*</span></label>
+                <label for="tipodocumento" class="control-label col-md-3 col-sm-3 col-xs-12">Tipo de Documento: <span class="required">*</span></label>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <select name="tipodocumento" id="tipodocumento" required class="form-control col-md-3 col-xs-12">
                     <option value=""></option>
@@ -88,7 +88,7 @@
                 </div>
               </div>
               <div class="form-group <?php echo !empty(form_error("num_documento")) ? 'has-error' : ''; ?>">
-                <label for="num_documento" class="control-label col-md-4 col-sm-3 col-xs-12">Numero de Documento:<span class="required">*</span></label>
+                <label for="num_documento" class="control-label col-md-3 col-sm-3 col-xs-12">Numero de Documento:<span class="required">*</span></label>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <input type="number" name="num_documento" value="<?php echo set_value('num_documento') ?>" id=num_documento required="required" class="form-control col-md-3 col-sm-3 col-xs-12" placeholder="">
                   <?php echo form_error("num_documento", "<span class='help-block col-md-4 cols-xs-12 '>", "</span>"); ?>
@@ -97,11 +97,11 @@
 
 
 
-              <div class="ln_solid"></div>
+         
 
               <div class="form-group">
 
-                <div class="col-md-4 col-sm-6 col-xs-12 col-md-offset-5">
+                <div class="col-md-4 col-sm-6 col-xs-12 col-md-offset-3">
                   <button class="btn btn-primary btn-flat" type="reset">Borrar</button>
                   <button type="submit" id="guardar" class="btn btn-success">Guardar</button>
 

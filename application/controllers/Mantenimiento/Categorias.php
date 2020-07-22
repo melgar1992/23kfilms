@@ -20,7 +20,7 @@ class Categorias extends BaseController
     {
         $nombre = $this->input->post("nombre");
         $descripcion = $this->input->post("descripcion");
-        $this->form_validation->set_rules("nombre", "Nombre", "required|is_unique[categorias.nombre]");
+        $this->form_validation->set_rules("nombre", "Nombre", "required|is_unique[categoria_servicios.nombre]");
         if ($this->form_validation->run()) {
             $data = array(
                 'nombre' => $nombre,
