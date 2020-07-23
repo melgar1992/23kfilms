@@ -146,10 +146,9 @@
 
 	<div class="row">
 		<div class="col-xs-6 ">
-			<br>----------------------------<br>
 			<br>Firma<br>
-			<br>Nombre:<?php echo $presupuesto->nombre_empleado . ' ' . $presupuesto->apellidos_empleado ?> <br>
-			<br>Telefono:<?php echo $presupuesto->telefono ?> <br>
+			<br>Nombre: <?php echo $presupuesto->nombre_empleado . ' ' . $presupuesto->apellidos_empleado ?> <br>
+			<br>Telefono: <?php echo $presupuesto->telefono ?> <br>
 
 			<br> <br>
 		</div>

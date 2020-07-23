@@ -135,7 +135,7 @@ $(document).ready(function () {
 	$(document).on('click', '.btn-print', function () {
 
 		$("#modal-default .modal-body").print({
-			title: 'Comprobante de venta',
+			title: 'Cotizacion de proyecto',
 		});
 	});
 
