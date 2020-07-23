@@ -98,15 +98,25 @@
 	</div>
 </div>
 <div>
+	<div class="row">
+		<div class="col-xs-6 ">
+			<br> <b>Honorarios 23KFilms: </b><?php echo $presupuesto->honorarios ?> $ <br>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-6 ">
+			<br> <b>Honorarios Agencia: </b><?php echo $presupuesto->honorarios_agencia ?> $<br>
+		</div>
+	</div>
 	<div>
 		<h5><b>Costo del proyecto:</b> <?php echo number_format($presupuesto->importeTotal, 2, '.', ',') ?> $</h5><br>
 		<?php $centavos = ($presupuesto->importeTotal - floor($presupuesto->importeTotal)) * 100; ?>
-		<?php echo convertir(number_format($presupuesto->importeTotal, 0, '.', '')) ?>  con <?php echo ($centavos > 0) ? convertir($centavos)  : 'cero'?> centavos.
+		<?php echo convertir(number_format($presupuesto->importeTotal, 0, '.', '')) ?> con <?php echo ($centavos > 0) ? convertir($centavos)  : 'cero' ?> centavos.
 	</div>
 	<div>
-		<h5><b>Costo del proyecto facturado:</b> <?php echo number_format($presupuesto->facturaTotal, 2, '.', ',') ?> $</h5><br>
+		<h5><b>Costo total del proyecto, incluye impuesto de ley:</b> <?php echo number_format($presupuesto->facturaTotal, 2, '.', ',') ?> $</h5><br>
 		<?php $centavosf = ($presupuesto->facturaTotal - floor($presupuesto->facturaTotal)) * 100; ?>
-		<?php echo convertir(number_format($presupuesto->facturaTotal, 0, '.', '')) ?>  con <?php echo ($centavosf > 0) ? convertir($centavosf) : 'cero' ?> centavos. <br>
+		<?php echo convertir(number_format($presupuesto->facturaTotal, 0, '.', '')) ?> con <?php echo ($centavosf > 0) ? convertir($centavosf) : 'cero' ?> centavos. <br>
 	</div>
 	<div class="row">
 		<div class="col-xs-12 ">
@@ -127,7 +137,7 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-12 ">
-			<br> <b>Nota:</b> Este presupuesto podria variar si ocurre cambio de guion
+			<br> <b>Nota:</b> Este presupuesto podria variar si ocurre cambio de guion, factores climaticos, factores politicos y factores belicos.
 		</div>
 		<br>
 	</div>

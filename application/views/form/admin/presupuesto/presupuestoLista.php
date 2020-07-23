@@ -65,7 +65,7 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-12 ">
-			<br> <b>Nota:</b> Este presupuesto podria variar si ocurre cambio de guion
+			<br> <b>Nota:</b> Este presupuesto podria variar si ocurre cambio de guion, factores climaticos, factores politicos y factores belicos.
 		</div>
 		<br>
 	</div>
