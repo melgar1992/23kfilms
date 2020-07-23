@@ -285,12 +285,23 @@ class Presupuesto extends BaseController
         $id_venta = $this->input->post('id');
       
         $data ['Configuracion'] = $this->Empresa_model->getEmpresa();
-
         $data['presupuesto'] = $this->Ventas_model->getVenta($id_venta);
         $data['detalle_ventas'] = $this->Ventas_model->getDetalles($id_venta);
         $data['cant_categoria_detalle'] = $this->Ventas_model->getCategoriaServicioDetalleVenta($id_venta);
        
        
         $this->load->view('form/admin/presupuesto/presupuestoConTablas', $data);
+    }
+    public function vista_lista()
+    {
+        $id_venta = $this->input->post('id');
+      
+        $data ['Configuracion'] = $this->Empresa_model->getEmpresa();
+        $data['presupuesto'] = $this->Ventas_model->getVenta($id_venta);
+        $data['detalle_ventas'] = $this->Ventas_model->getDetalles($id_venta);
+        $data['cant_categoria_detalle'] = $this->Ventas_model->getCategoriaServicioDetalleVenta($id_venta);
+       
+       
+        $this->load->view('form/admin/presupuesto/presupuestoLista', $data);
     }
 }

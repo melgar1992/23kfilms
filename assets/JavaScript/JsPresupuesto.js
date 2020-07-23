@@ -184,6 +184,21 @@ $(document).ready(function () {
 			}
 		});
 	});
+	$(document).on('click', '.btn-view-presupuestoLista', function () {
+		valor_id = $(this).val();
+		$.ajax({
+			url: base_url + 'Movimientos/Presupuesto/vista_lista',
+			type: 'POST',
+			dataType: 'html',
+			data: {
+				id: valor_id
+			},
+			success: function (data) {
+
+				$('#modal-default .modal-body').html(data);
+			}
+		});
+	});
 
 	$(document).on("change", ".costo, .cantidad, .dias", function () {
 
