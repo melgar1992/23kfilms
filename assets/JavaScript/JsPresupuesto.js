@@ -169,10 +169,10 @@ $(document).ready(function () {
 			}
 		})
 	});
-	$(document).on('click', '.btn-view-presupuesto', function () {
+	$(document).on('click', '.btn-view-presupuestoTablas', function () {
 		valor_id = $(this).val();
 		$.ajax({
-			url: base_url + 'Movimientos/Presupuesto/vista_factura',
+			url: base_url + 'Movimientos/Presupuesto/vista_tablas',
 			type: 'POST',
 			dataType: 'html',
 			data: {

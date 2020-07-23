@@ -280,7 +280,7 @@ class Presupuesto extends BaseController
         $this->Ventas_model->borrar_detalle_completo($id_ventas);
         echo "Movimientos/Presupuesto";
     }
-    public function vista_factura()
+    public function vista_tablas()
     {
         $id_venta = $this->input->post('id');
       
@@ -291,6 +291,6 @@ class Presupuesto extends BaseController
         $data['cant_categoria_detalle'] = $this->Ventas_model->getCategoriaServicioDetalleVenta($id_venta);
        
        
-        $this->load->view('form/admin/presupuesto/presupuestoConFactura', $data);
+        $this->load->view('form/admin/presupuesto/presupuestoConTablas', $data);
     }
 }
