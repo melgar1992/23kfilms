@@ -80,10 +80,10 @@
                                               <label for="fase_proyecto" class="">Fase de proyecto</label>
                                               <select name="fase_proyecto" id="fase_proyecto" requiered='requiered' class="form-control col-md-7 col-xs-12">
                                                   <option value=""></option>
-                                                  <option <?php echo ($venta->fase_proyecto == 'Evaluacion del proyecto') ? 'selected' : ''; ?> value="Evaluacion del proyecto">Evaluacion del proyecto</option>
+                                                  <option <?php echo ($venta->fase_proyecto == 'Evaluacion del presupuesto') ? 'selected' : ''; ?> value="Evaluacion del presupuesto">Evaluacion del presupuesto</option>
                                                   <option <?php echo ($venta->fase_proyecto == 'Aprobado') ? 'selected' : ''; ?> value="Aprobado">Aprobado</option>
-                                                  <option <?php echo ($venta->fase_proyecto == 'En ejecucion') ? 'selected' : ''; ?> value="En ejecucion">En ejecucion</option>
-                                                  <option <?php echo ($venta->fase_proyecto == 'Terminado') ? 'selected' : ''; ?> value="Terminado">Terminado</option>
+                                                  <option <?php echo ($venta->fase_proyecto == 'Descartado') ? 'selected' : ''; ?> value="Descartado">Descartado</option>
+                                                
 
                                               </select>
                                           </div>

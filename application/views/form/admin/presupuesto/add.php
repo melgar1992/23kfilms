@@ -81,11 +81,10 @@
                                               <label for="fase_proyecto" class="">Fase de proyecto</label>
                                               <select name="fase_proyecto" id="fase_proyecto" requiered='requiered' class="form-control col-md-7 col-xs-12">
                                                   <option value=""></option>
-                                                  <option value="Evaluacion del proyecto">Evaluacion del proyecto</option>
+                                                  <option value="Evaluacion del proyecto">Evaluacion del presupuesto</option>
                                                   <option value="Aprobado">Aprobado</option>
-                                                  <option value="En ejecucion">En ejecucion</option>
-                                                  <option value="Terminado">Terminado</option>
-
+                                                  <option value="En ejecucion">Descartado</option>
+                                                 
                                               </select>
                                           </div>
                                           <div class="col-md-3 col-lg-3">
