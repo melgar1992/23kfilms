@@ -35,9 +35,10 @@
 				<li><b><?php echo $nombreCategoria ?></b>
 					<ul>
 						<?php if (!empty($detalle_ventas)) : ?>
-
 							<?php foreach ($detalle_ventas as $row) : ?>
-								<li><?php echo $row['nombre']; ?></li>
+								<?php if ($cant_categoria_detalle[$i]['id_categoria_servicios'] == $row['id_categoria_servicios']) : ?>
+									<li><?php echo $row['nombre']; ?></li>
+								<?php endif; ?>
 							<?php endforeach; ?>
 						<?php endif; ?>
 					</ul>
