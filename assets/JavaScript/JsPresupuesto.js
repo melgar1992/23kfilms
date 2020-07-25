@@ -561,13 +561,11 @@ function calculoEstadoResultado() {
 	porcentaje_comision = Number($("input[name=porcentaje_honorarios]").val());
 	porcentaje_agencia = Number ($("input[name=porcentaje_honorarios_agencia]").val());
 	honorarios = Number(costo_produccion) * Number((porcentaje_comision / 100));
-	sub_total = Number(costo_produccion) + Number(honorarios);
-	honorarios_agencia = sub_total * (porcentaje_agencia / 100);
-	total = Number(sub_total) + Number(honorarios_agencia);
+	total = Number(costo_produccion) + Number(honorarios);
 	totalFacturado = total * 1.16;
 	iva = total * 0.16;
+	honorarios_agencia = totalFacturado * (porcentaje_agencia / 100);
 	$("input[name=honorarios]").val(honorarios.toFixed(2));
-	$("input[name=sub_total]").val(sub_total.toFixed(2));
 	$("input[name=honorarios_agencia]").val(honorarios_agencia.toFixed(2));
 	$("input[name=importeTotal]").val(total.toFixed(2));
 	$("input[name=iva]").val(iva.toFixed(2));

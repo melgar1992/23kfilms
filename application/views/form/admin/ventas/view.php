@@ -100,12 +100,17 @@
 <div>
 	<div class="row">
 		<div class="col-xs-6 ">
-			<br> <b>Honorarios 23KFilms: </b><?php echo $venta->honorarios ?> $ <br>
+			<br> <b>Costo de produccion: </b><?php echo number_format($venta->costo_produccion, 2) ?> $ <br>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-6 ">
-			<br> <b>Honorarios Agencia: </b><?php echo $venta->honorarios_agencia ?> $<br>
+			<br> <b>Honorarios 23KFilms: </b><?php echo number_format($venta->honorarios, 2) ?> $ <br>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-6 ">
+			<br> <b>Honorarios Agencia: </b><?php echo number_format($venta->honorarios_agencia, 2)?> $<br>
 		</div>
 	</div>
 	<div>

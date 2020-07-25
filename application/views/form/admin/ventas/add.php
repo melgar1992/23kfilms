@@ -134,7 +134,7 @@
                                       </div>
 
                                       <div class="form-group">
-                                          <div class="col-md-3">
+                                      <div class="col-md-3">
                                               <div class="input-group has-feedback">
                                                   <span class="input-group-addon">Costo produccion:</span>
                                                   <input type="text" class="form-control" placeholder="" id="costo_produccion" value="0.00" name="costo_produccion" readonly="readonly">
@@ -150,28 +150,15 @@
                                           </div>
                                           <div class="col-md-3">
                                               <div class="input-group has-feedback">
-                                                  <span class="input-group-addon">Sub total:</span>
-                                                  <input type="text" class="form-control" placeholder="" id="sub_total" value="0.00" name="sub_total" readonly="readonly">
-                                                  <span class="fa fa-dollar form-control-feedback right" aria-hidden="true"></span>
-                                              </div>
-                                          </div>
-                                      </div>
-                                      <div class="form-group">
-                                          <div class="col-md-3">
-                                              <div class="input-group has-feedback">
-                                                  <span class="input-group-addon">Honorarios Agencia:</span>
-                                                  <input type="text" class="form-control" placeholder="" id="honorarios_agencia" value="0.00" name="honorarios_agencia" readonly="readonly">
-                                                  <span class="fa fa-dollar form-control-feedback right" aria-hidden="true"></span>
-                                              </div>
-                                          </div>
-                                          <div class="col-md-3">
-                                              <div class="input-group has-feedback">
                                                   <span class="input-group-addon">Total:</span>
                                                   <input type="text" class="form-control" placeholder="" id="importeTotal" value="0.00" name="importeTotal" readonly="readonly">
                                                   <span class="fa fa-dollar form-control-feedback right" aria-hidden="true"></span>
                                               </div>
                                           </div>
-                                          <div class="col-md-3">
+                                      </div>
+                                      <div class="form-group">
+                                                                                   
+                                      <div class="col-md-3">
                                               <div class="input-group has-feedback">
                                                   <span class="input-group-addon">Iva:</span>
                                                   <input type="text" class="form-control" placeholder="" id="iva" value="0.00" name="iva" readonly="readonly">
@@ -182,6 +169,13 @@
                                               <div class="input-group has-feedback">
                                                   <span class="input-group-addon">Total facturado:</span>
                                                   <input type="text" class="form-control" placeholder="" id="facturaTotal" value="0.00" name="facturaTotal" readonly="readonly">
+                                                  <span class="fa fa-dollar form-control-feedback right" aria-hidden="true"></span>
+                                              </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                              <div class="input-group has-feedback">
+                                                  <span class="input-group-addon">Honorarios Agencia:</span>
+                                                  <input type="text" class="form-control" placeholder="" id="honorarios_agencia" value="0.00" name="honorarios_agencia" readonly="readonly">
                                                   <span class="fa fa-dollar form-control-feedback right" aria-hidden="true"></span>
                                               </div>
                                           </div>

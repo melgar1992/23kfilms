@@ -1,7 +1,6 @@
-$(document).ready(function() {
+$(document).ready(function () {
     var base_url = $("#base_url").val();
-
-    $(document).on('click', '.btn-borrar', function() {
+    $(document).on('click', '.btn-borrar', function () {
 
 
         Swal.fire({
@@ -21,7 +20,7 @@ $(document).ready(function() {
                 $.ajax({
                     url: base_url + 'Formularios/Usuarios/borrar/' + id,
                     type: 'POST',
-                    success: function(resp) {
+                    success: function (resp) {
 
                         window.location.href = base_url + resp;
                     }
@@ -32,6 +31,7 @@ $(document).ready(function() {
         })
 
     })
+    $('#usuarios').trigger('reset');
 
 
 })

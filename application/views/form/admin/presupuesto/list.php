@@ -41,10 +41,11 @@
                               </a>
 
                           </div>
+                          <br>
+                          <br>
+                          <hr>
 
                           <div class="row">
-                              <hr>
-                              <hr>
                               <div class="col-md-12">
                                   <table id="example1" class="table table-bordered btn-hover">
                                       <thead>
