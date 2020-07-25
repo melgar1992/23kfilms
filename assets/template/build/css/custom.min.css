@@ -520,6 +520,9 @@ body .container.body .right_col {
 .dark {
     color: #34495E
 }
+.amarillo {
+    color: #ffcf00;
+}
 
 .border-blue {
     border-color: #3498DB !important
