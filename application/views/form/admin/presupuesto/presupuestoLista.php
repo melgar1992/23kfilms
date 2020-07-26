@@ -24,7 +24,7 @@
 </div>
 <br>
 <div id="Titulo del proyecto">
-	<h4 class="text-center col-xs-12">Cotizacion del proyecto: <?php echo $presupuesto->proyecto; ?></h4>
+<h4 class="text-center col-xs-12"><b>Cotizacion del proyecto: <?php echo $presupuesto->proyecto; ?></h4></b>
 	<p>A continuación detallamos la cotización.</p><br>
 </div>
 <div class="row">

@@ -69,12 +69,12 @@
                             <thead>
                               <tr>
                                 <th>#</th>
-                                <th>Nombres Cliente</th>
                                 <th>Fecha</th>
-                                <th>Total</th>
-                                <th>Total Facturado</th>
+                                <th>Nombres Cliente</th>
                                 <th>Nombre proyecto</th>
                                 <th>Estado proyecto</th>
+                                <th>Total</th>
+                                <th>Total Facturado</th>
                                 <th>Opciones</th>
                               </tr>
                             </thead>
@@ -83,12 +83,14 @@
                                 <?php foreach ($presupuestos as $row) : ?>
                                   <tr>
                                     <td><?php echo $row['id_ventas']; ?></td>
-                                    <td><?php echo $row['nombres']; ?></td>
                                     <td><?php echo $row['fecha']; ?></td>
-                                    <td><?php echo $row['importeTotal']; ?></td>
-                                    <td><?php echo $row['facturaTotal']; ?></td>
+                                    <td><?php echo $row['nombres']; ?></td>
                                     <td><?php echo $row['proyecto']; ?></td>
                                     <td><?php echo $row['fase_proyecto']; ?></td>
+                                    <td><?php echo $row['importeTotal']; ?></td>
+                                    <td><?php echo $row['facturaTotal']; ?></td>
+                                
+                               
                                     <td>
                                       <button type="button" title="Vista sin tablas" class="btn btn-info btn-view-presupuestoLista" data-toggle="modal" data-target="#modal-default" value="<?php echo $row['id_ventas'] ?>"><span class="fa fa-file-text-o"></span></button>
                                       <button type="button" title="Vista con tablas" class="btn btn-info btn-view-presupuestoTablas" data-toggle="modal" data-target="#modal-default" value="<?php echo $row['id_ventas'] ?>"><span class="fa fa-file-text-o"></span></button>
