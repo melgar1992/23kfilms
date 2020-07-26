@@ -14,7 +14,7 @@ if (!$this->session->userdata('login')) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="<?php echo base_url();?>assets/imagenes/reflejo.svg" type="svg" />
 
-  <title>Sistema de 23K film</title>
+  <title>Sistema 23Kfilms</title>
 
   <!-- Bootstrap -->
   <link href="<?php echo base_url(); ?>assets/template/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
